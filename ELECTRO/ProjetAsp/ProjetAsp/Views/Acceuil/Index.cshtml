@@ -1,0 +1,21 @@
+﻿@model ProjetAsp.Models.Client
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<h2>Bonjour monsieur @Model.nom @Model.prenom</h2>
+
+<div>
+
+    <p>@Html.ActionLink("Consulte les catalogues", "Consultez", "Acceuil")</p>
+
+    <p>@Html.ActionLink("Visualisez Votre Paniez", "Visualisez", "Acceuil")</p>
+
+    <p>@Html.ActionLink("Accede aux convertisseur temps reel", "Convertisseur", "Acceuil")</p>
+
+    <p>@Html.ActionLink("Lancez des commandes", "AjouterPanier", "Acceuil")</p>
+
+</div>
+

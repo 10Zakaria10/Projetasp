@@ -1,0 +1,20 @@
+﻿@{ 
+    Layout = "~/Views/Shared/_nob.cshtml";
+}
+@{
+    ViewBag.Title = "ChooseLanguage";
+}
+
+
+
+<h2>
+
+    @ProjetAsp.Resources.HomeTexts.ChooseLang
+
+</h2>
+
+<ul>
+    <li>@Html.ActionLink(@ProjetAsp.Resources.HomeTexts.English, "Change", "Langage", new { LanguageAbbrevation = "en" }, null)</li>
+    <li>@Html.ActionLink(@ProjetAsp.Resources.HomeTexts.Frensh, "Change", "Langage", new { LanguageAbbrevation = "fr" }, null)</li>
+
+</ul>

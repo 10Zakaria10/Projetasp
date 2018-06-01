@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ProjetAsp.Models.Categorie>
+
+@{
+    Layout = "~/Views/Shared/_nob.cshtml";
+}
+@{
+    ViewBag.Title = ProjetAsp.Resources.HomeTexts.GestionCategorie;
+}
+
+<h2>@ProjetAsp.Resources.HomeTexts.GestionCategorie</h2>
+
+<p>
+    @Html.ActionLink(ProjetAsp.Resources.HomeTexts.CreateCat, "CreateCat")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.refcat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nomCat)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.refcat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomCat)
+            </td>
+            <td>
+                @Html.ActionLink(ProjetAsp.Resources.HomeTexts.Edit, "EditCat", new { id = item.refcat }) |
+                @Html.ActionLink(ProjetAsp.Resources.HomeTexts.Delete, "DeleteCat", new { id = item.refcat })
+            </td>
+        </tr>
+    }
+
+</table>

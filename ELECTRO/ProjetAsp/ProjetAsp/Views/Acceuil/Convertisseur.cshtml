@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "convertisseur";
+    var url = ViewBag.url;
+}
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#btn").click(function () {
+            
+            alert($("span").text());
+            $("iframe").attr("src", $("span").text());
+            
+        });
+    });
+</script>
+
+
+
+<span hidden>@url</span>
+<iframe src="/Home/Contact" width="600" height="400"></iframe>
+
+
+<button id="btn">Click</button>

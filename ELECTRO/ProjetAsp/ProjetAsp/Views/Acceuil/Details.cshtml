@@ -1,0 +1,35 @@
+﻿@model ProjetAsp.Models.Article
+    @{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<table border>
+
+
+   
+        <tr>
+            <td>Designation</td>
+            <td>@Model.designation</td>
+
+        </tr>
+        <tr>
+            <td>Prix</td>
+            <td>@Model.prixU</td>
+        </tr>
+        <tr>
+            <td>Photo du produit</td>
+            <td><img src="@Url.Content(@Model.photo)" /></td>
+        </tr>
+
+        <tr>
+            <td>Stock</td>
+            <td>@Model.stock</td>
+        </tr>
+    
+
+
+</table>
+
+

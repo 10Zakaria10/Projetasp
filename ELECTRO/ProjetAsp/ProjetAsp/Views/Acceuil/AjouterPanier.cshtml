@@ -1,0 +1,166 @@
+﻿@model IEnumerable<ProjetAsp.Models.Commande>
+
+@{
+    ViewBag.Title = "Ajoutez panier";
+}
+
+
+<script>
+
+
+
+    $(function () {
+
+        $("#x").change(function () {
+            $.get("/Acceuil/GetArticle", { ID: $("#x").val() }, function (data) {
+
+                $("#contenu").empty();
+
+                $.each(data, function (index, ligne) {
+                    if (index == 0) 
+                        $("#stock").val(ligne.stock)
+
+                    $("#contenu").append("<option value='" + ligne.numarticle + "'>" + ligne.designation + "</option>")
+
+                });
+            })
+        });
+    });
+
+
+
+
+</script>
+
+<script>
+
+
+
+    $(function () {
+
+        $("#contenu").change(function () {
+            $.get("/Acceuil/GetStock", { ID: $("#contenu").val() }, function (data) {
+
+
+                $.each(data, function (index, ligne) {
+
+                    $("#stock").val(ligne.stock)
+                });
+            })
+        });
+    });
+
+
+
+
+</script>
+
+
+
+
+<body>
+    <h2>AjouterPanier</h2>
+    @ViewBag.err
+
+    @using (Html.BeginForm("AjouterPanier", "Acceuil", FormMethod.Post))
+    {
+        <table>
+
+            <tr>
+                <td>Choix categorie</td>
+                <td>
+                    @Html.DropDownList("x", ViewBag.e as SelectList, "select Categorie");
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>Choix Article</td>
+                <td>
+
+                    <select id="contenu" name="contenu"></select>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>Stock</td>
+                <td>
+                    <input id="stock" name="stock" type="text" value="" />
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>Quantite</td>
+                <td>
+                    <input id="qte" name="qte" type="text" />
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td><button type="submit">Ajoutez</button></td>
+            </tr>
+        </table>
+
+    }
+
+
+
+
+
+    <br /><br />
+
+
+    <table class="table">
+        <tr>
+            <th>
+                Designation
+            </th>
+            <th>
+                Prix
+            </th>
+            <th>
+                Photo
+            </th>
+            <th>
+                Quantite
+            </th>
+            <th>
+                Date de commande
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Article.designation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Article.prixU)
+                </td>
+                <td>
+                    <img src="@Url.Content(item.Article.photo)" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.qtearticle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.datecmd)
+                </td>
+           
+            </tr>
+        }
+
+    </table>
+
+
+
+
+
+
+</body>

@@ -1,0 +1,177 @@
+﻿@model ProjetAsp.Models.Client
+
+@{
+    ViewBag.Title = "Index";
+}
+<input type="hidden" id="nom" value="@Model.nom" />
+<input type="hidden" id="prenom" value="@Model.prenom" />
+<input type="hidden" id="ville" value="@Model.ville" />
+<input type="hidden" id="email" value="@Model.email" />
+<input type="hidden" id="tel" value="@Model.tel" />
+
+
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="breadcrumb-header">Checkout</h3>
+                <ul class="breadcrumb-tree">
+                    <li><a href="#">Home</a></li>
+                    <li class="active">Checkout</li>
+                </ul>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+            <div class="col-md-7">
+                <!-- Billing Details -->
+                <div class="billing-details">
+                    <div class="section-title">
+                        <h3 class="title">Billing address</h3>
+                    </div>
+                    <div class="form-group">
+                        <input class="input"id="fnom" type="text" name="first-name" placeholder="First Name">
+                    </div>
+                    <div class="form-group">
+                        <input class="input" id="fprenom" type="text" name="last-name" placeholder="Last Name">
+                    </div>
+                    <div class="form-group">
+                        <input class="input" id="femail" type="email" name="email" placeholder="Email">
+                    </div>
+
+                    <div class="form-group">
+                        <input class="input" id="fville" type="text" name="city" placeholder="City">
+                    </div>
+
+
+                    <div class="form-group">
+                        <input class="input" id="ftel" type="tel" name="tel" placeholder="Telephone">
+                    </div>
+                    <div class="form-group">
+                        <input class="input" type="text" name="country" placeholder="Country">
+                    </div>
+                    <div class="form-group">
+                        <input class="input" type="text" name="address" placeholder="Address">
+                    </div>
+
+                    <div class="input-checkbox">
+                        <input type="checkbox" id="create-account">
+                        <label for="create-account">
+                            <span></span>
+                            Fill information from your account ?
+                        </label>
+                        <div class="caption">
+                            <p>Don't forget to add adress and country </p>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /Billing Details -->
+
+
+            </div>
+
+            <!-- Order Details -->
+            <div class="col-md-5 order-details">
+                <div class="section-title text-center">
+                    <h3 class="title">Your Order</h3>
+                </div>
+                <div class="order-summary">
+                    <div class="order-col">
+                        <div><strong>PRODUCT</strong></div>
+                        <div><strong>TOTAL</strong></div>
+                    </div>
+                    <div class="order-products">
+                        @foreach (var x in ViewBag.charts)
+                        {
+                            float prix = (float)(x.qtearticle * x.Article.prixU);
+                            <div class="order-col">
+                                <div>@x.qtearticle x @x.Article.designation</div>
+                                <div>@prix</div>
+                            </div>
+                        }
+                        <div class="order-col">
+                            <div><strong>TOTAL</strong></div>
+                            <div><strong class="order-total">$@ViewBag.totalcart</strong></div>
+                        </div>
+                    </div>
+                    <div class="payment-method">
+                        <div class="input-radio">
+                            <input type="radio" name="payment" id="payment-1">
+                            <label for="payment-1">
+                                <span></span>
+                                Achat sur place
+                            </label>
+                            <div class="caption">
+                                <p>Vous devez venir aux magasin le plus proche de chez vous avec votre identifiant qui est le suivant :<span style="color:red;"><strong> @Model.numClient    </strong> </span></p>
+                            </div>
+                        </div>
+                        <div class="input-radio">
+                            <input type="radio" name="payment" id="payment-2">
+                            <label for="payment-2">
+                                <span></span>
+                                Livraison a domocile
+                            </label>
+                            <div class="caption">
+                                <p>une somme supplémentaire de 50 dh s'ajoute aux prix de chaque produit acheté.</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <a href="#" class="primary-btn order-submit">Place order</a>
+                </div>
+                <!-- /Order Details -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /SECTION -->
+
+
+    <script>
+
+
+
+        $("#create-account").change(function () {
+
+
+            if ($("#create-account").is(':checked')) {
+                $("#fnom").val($("#nom").val());
+                $("#fprenom").val($("#prenom").val());
+                $("#femail").val($("#email").val());
+                $("#ftel").val($("#tel").val());
+                $("#fville").val($("#ville").val());
+            }
+            else {
+                $("#fnom").val("");
+                $("#fprenom").val("");
+                $("#femail").val("");
+                $("#ftel").val("");
+                $("#fville").val("");
+            }
+                
+            
+           
+
+        });
+
+
+
+
+    </script>

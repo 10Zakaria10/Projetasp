@@ -1,0 +1,12 @@
+﻿@{
+    Layout = "~/Views/Shared/_nob.cshtml";
+}
+@{
+    ViewBag.Title = "StatistiquePage";
+}
+
+<h2>@ProjetAsp.Resources.HomeTexts.StatistiqueP</h2>
+
+<img src=@Url.Action("myChart") />
+<br /><br />
+<p><img src=@Url.Action("ChartProduit") /></p>

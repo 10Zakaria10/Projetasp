@@ -1,0 +1,118 @@
+﻿@model IEnumerable<ProjetAsp.Models.Article>
+
+@{
+    Layout = "~/Views/Shared/_nob.cshtml";
+}
+
+@{
+    ViewBag.Title = ProjetAsp.Resources.HomeTexts.GestionArticle;
+}
+
+<script>
+
+    $(function () {
+
+        $("#x").change(function () {
+            $.get("/Acceuil/GetArticle", { ID: $("#x").val() }, function (data) {
+
+                $("#contenu").empty();
+
+                $.each(data, function (index, ligne) {
+
+                    $("#contenu").append("<option value='" + ligne.numArticle + "'>" + ligne.designation + "</option>")
+
+                });
+            })
+        });
+    });
+
+</script>
+
+
+
+<h2>@ProjetAsp.Resources.HomeTexts.GestionArticle</h2>
+
+@using (Html.BeginForm("ChercherArticle", "AdminHome", FormMethod.Post))
+{
+    <table>
+
+        <tr>
+            <td>@ProjetAsp.Resources.HomeTexts.ChoixCat</td>
+            <td>
+                @Html.DropDownList("x", ViewBag.e as SelectList, "select Categorie");
+            </td>
+        </tr>
+        <tr>
+            <td>@ProjetAsp.Resources.HomeTexts.ChoixArt</td>
+            <td>
+
+                <select id="contenu" name="contenu"></select>
+            </td>
+        </tr>
+
+        <tr>
+            <td><button type="submit">@ProjetAsp.Resources.HomeTexts.Search</button></td>
+        </tr>
+    </table>
+
+}
+
+<br />
+
+
+
+<p>
+    @Html.ActionLink(@ProjetAsp.Resources.HomeTexts.CreateArt, "CreateArticle")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.numArticle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.designation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prixU)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stock)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.photo)
+        </th>
+        <th>
+            Categorie
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.numArticle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.designation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.prixU)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.stock)
+            </td>
+            <td>
+                <img src="@Url.Content(item.photo)" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categorie.nomCat)
+            </td>
+            <td>
+                @Html.ActionLink(ProjetAsp.Resources.HomeTexts.Edit, "EditArticle", new { id = item.numArticle }) |
+                @Html.ActionLink(ProjetAsp.Resources.HomeTexts.Delete, "DeleteArticle", new { id = item.numArticle })
+            </td>
+        </tr>
+    }
+
+</table>

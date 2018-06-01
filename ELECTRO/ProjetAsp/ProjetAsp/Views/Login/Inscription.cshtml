@@ -1,0 +1,116 @@
+﻿@model ProjetAsp.Models.Client
+@{
+    ViewBag.Title = "Inscription";
+}
+
+
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="breadcrumb-header">INSCRIPTION</h3>
+                <ul class="breadcrumb-tree">
+                    <li><a href="#">Home</a></li>
+                    <li class="active">Inscription</li>
+                </ul>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+            <div class="col-md-7">
+                <!-- Billing Details -->
+
+                <div class="billing-details">
+
+                    @using (Html.BeginForm("Inscription", "Login", FormMethod.Post))
+    {
+                @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.nom, new { htmlAttributes = new { placeholder = "Nom", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.nom, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.prenom, new { htmlAttributes = new { placeholder = "Prenom", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.prenom, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.email, new { htmlAttributes = new { placeholder = "Email", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.login, new { htmlAttributes = new { placeholder = "Login", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.login, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.mdp, new { htmlAttributes = new { placeholder = "Password", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.mdp, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ville, new { htmlAttributes = new { placeholder = "Ville", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ville, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.tel, new { htmlAttributes = new { placeholder = "Telephone", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.tel, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <button class="primary-btn order-submit">Inscription</button>
+
+                        </div>
+                    </div>
+}
+
+             
+                </div>
+                <!-- /Billing Details -->
+
+            </div>
+
+
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->

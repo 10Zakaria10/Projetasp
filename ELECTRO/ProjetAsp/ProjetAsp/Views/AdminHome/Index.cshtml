@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "~/Views/Shared/_nob.cshtml";
+}
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>@Html.ActionLink(@ProjetAsp.Resources.HomeTexts.GestionClient, "GestionClient", "AdminHome")</p>
+
+<p>@Html.ActionLink(@ProjetAsp.Resources.HomeTexts.GestionArticle, "GestionArticle", "AdminHome")</p>
+
+<p>@Html.ActionLink(@ProjetAsp.Resources.HomeTexts.GestionCategorie, "GestionCat", "AdminHome")</p>
+
+<p>@Html.ActionLink(@ProjetAsp.Resources.HomeTexts.Statistique, "StatistiquePage", "AdminHome")</p>

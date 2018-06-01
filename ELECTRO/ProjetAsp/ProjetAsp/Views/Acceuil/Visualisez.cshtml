@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ProjetAsp.Models.Commande>
+
+@{
+    ViewBag.Title = "Visualisez";
+}
+
+<h2>Visualisez</h2>
+
+<p>
+    @Html.ActionLink("Ajoutez un produit au paneir", "AjouterPanier", "Acceuil")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Designation
+        </th>
+        <th>
+            Prix
+        </th>
+        <th>
+            Photo
+        </th>
+        <th>
+            Quantite
+        </th>
+        <th>
+            Date de commande
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Article.designation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Article.prixU)
+        </td>
+        <td>
+        <img src="@Url.Content(item.Article.photo)" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.qtearticle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.datecmd)
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "DeleteArt", new {  id=item.numarticle  })
+        </td>
+    </tr>
+    }
+
+</table>
+
+<p style="text-align:center;">le prix total est :@ViewBag.prix dh</p>

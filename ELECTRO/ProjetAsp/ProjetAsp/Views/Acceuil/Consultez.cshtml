@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ProjetAsp.Models.Article>
+
+@{
+    ViewBag.Title = "Consultez";
+}
+
+<h2>Consultez</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.numarticle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.designation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prixU)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stock)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.photo)
+        </th>
+        <th>
+            Categorie
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.numarticle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.designation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.prixU)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.stock)
+        </td>
+        <td>
+            <img src="@Url.Content(item.photo)" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Categorie.nomCat)
+        </td>
+
+        <td>
+            @Html.ActionLink("Details", "Details", "Acceuil", new { id = item.numarticle }, null)
+        </td>
+
+    </tr>
+}
+
+</table>
