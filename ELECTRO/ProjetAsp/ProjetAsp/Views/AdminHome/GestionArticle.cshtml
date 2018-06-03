@@ -30,89 +30,98 @@
 
 
 
-<h2>@ProjetAsp.Resources.HomeTexts.GestionArticle</h2>
+<div class="main-content">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
 
-@using (Html.BeginForm("ChercherArticle", "AdminHome", FormMethod.Post))
-{
-    <table>
+                <h2>@ProjetAsp.Resources.HomeTexts.GestionArticle</h2>
 
-        <tr>
-            <td>@ProjetAsp.Resources.HomeTexts.ChoixCat</td>
-            <td>
-                @Html.DropDownList("x", ViewBag.e as SelectList, "select Categorie");
-            </td>
-        </tr>
-        <tr>
-            <td>@ProjetAsp.Resources.HomeTexts.ChoixArt</td>
-            <td>
+                @using (Html.BeginForm("ChercherArticle", "AdminHome", FormMethod.Post))
+                {
+                    <table>
 
-                <select id="contenu" name="contenu"></select>
-            </td>
-        </tr>
+                        <tr>
+                            <td>@ProjetAsp.Resources.HomeTexts.ChoixCat</td>
+                            <td>
+                                @Html.DropDownList("x", ViewBag.e as SelectList, "select Categorie");
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@ProjetAsp.Resources.HomeTexts.ChoixArt</td>
+                            <td>
 
-        <tr>
-            <td><button type="submit">@ProjetAsp.Resources.HomeTexts.Search</button></td>
-        </tr>
-    </table>
+                                <select id="contenu" name="contenu"></select>
+                            </td>
+                        </tr>
 
-}
+                        <tr>
+                            <td><button type="submit">@ProjetAsp.Resources.HomeTexts.Search</button></td>
+                        </tr>
+                    </table>
 
-<br />
+                }
+
+                <br />
 
 
 
-<p>
-    @Html.ActionLink(@ProjetAsp.Resources.HomeTexts.CreateArt, "CreateArticle")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.numArticle)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.designation)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.prixU)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.stock)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.photo)
-        </th>
-        <th>
-            Categorie
-        </th>
-        <th></th>
-    </tr>
+                <p>
+                    @Html.ActionLink(@ProjetAsp.Resources.HomeTexts.CreateArt, "CreateArticle")
+                </p>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.numArticle)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.designation)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.prixU)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.stock)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.photo)
+                        </th>
+                        <th>
+                            Categorie
+                        </th>
+                        <th></th>
+                    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.numArticle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.designation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.prixU)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.stock)
-            </td>
-            <td>
-                <img src="@Url.Content(item.photo)" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Categorie.nomCat)
-            </td>
-            <td>
-                @Html.ActionLink(ProjetAsp.Resources.HomeTexts.Edit, "EditArticle", new { id = item.numArticle }) |
-                @Html.ActionLink(ProjetAsp.Resources.HomeTexts.Delete, "DeleteArticle", new { id = item.numArticle })
-            </td>
-        </tr>
-    }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.numArticle)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.designation)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.prixU)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.stock)
+                            </td>
+                            <td>
+                                <img src="@Url.Content(item.photo)" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Categorie.nomCat)
+                            </td>
+                            <td>
+                                @Html.ActionLink(ProjetAsp.Resources.HomeTexts.Edit, "EditArticle", new { id = item.numArticle }) |
+                                @Html.ActionLink(ProjetAsp.Resources.HomeTexts.Delete, "DeleteArticle", new { id = item.numArticle })
+                            </td>
+                        </tr>
+                    }
 
-</table>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

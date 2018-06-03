@@ -8,7 +8,7 @@ namespace ProjetAsp.Services
 {
     public class CommandeImp : ICommande
     {
-        prjcontext prj = new prjcontext();
+        PrjContext2 prj = new PrjContext2();
 
         public void AjouteCommande(int person, int idarticle, int qte)
         {
@@ -74,6 +74,11 @@ namespace ProjetAsp.Services
            return from c in prj.Commandes where c.numclient == person select c;
         }
 
+        public IEnumerable<Commande> getLastCommande()
+        {
+            return from c in prj.Commandes orderby c.numcmd descending select c;
+        }
+
         public float totalClient(int idclient)
         {
            var x= from c in prj.Commandes where c.numclient==idclient select c;
@@ -82,6 +87,38 @@ namespace ProjetAsp.Services
             {
                 somme =(float)( somme + i.Article.prixU*i.qtearticle);
             }
+            return somme;
+        }
+
+        public double thisweek()
+        {
+            DateTime localDate = DateTime.Now;
+            DateTime date =localDate.AddDays(-7);
+
+            var x = from c in prj.Commandes where c.datecmd < localDate && c.datecmd > date select c;
+            double somme = 0;
+
+            foreach(var i in x )
+            {
+
+                somme = Convert.ToDouble(somme + i.Article.prixU*i.qtearticle);
+            }
+
+            return somme;
+
+        }
+
+        public double totalearn()
+        {
+            var x = from c in prj.Commandes  select c;
+            double somme = 0;
+
+            foreach (var i in x)
+            {
+
+                somme = Convert.ToDouble(somme + i.Article.prixU * i.qtearticle);
+            }
+
             return somme;
         }
     }

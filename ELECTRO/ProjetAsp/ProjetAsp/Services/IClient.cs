@@ -26,5 +26,6 @@ namespace ProjetAsp.Models
 
         void DeleteClient(int id);
 
+        int countClients();
     }
 }

@@ -9,81 +9,91 @@
 
 
 
-<h2> @ProjetAsp.Resources.HomeTexts.GestionClient</h2>
+
+<div class="main-content">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+
+                <h2> @ProjetAsp.Resources.HomeTexts.GestionClient</h2>
 
 
 
-@using (Html.BeginForm())
-{
-    @Html.TextBox("searchitem", null, new { id = "txtsearch" })
-    <input type="submit" value=@ProjetAsp.Resources.HomeTexts.Search />
-}
-<br />
+                @using (Html.BeginForm())
+                {
+                    @Html.TextBox("searchitem", null, new { id = "txtsearch" })
+                    <input type="submit" value=@ProjetAsp.Resources.HomeTexts.Search />
+                }
+                <br />
 
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.numClient)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.login)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.mdp)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nom)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.prenom)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ville)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tel)
-        </th>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.numClient)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.login)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.mdp)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.nom)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.prenom)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.email)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ville)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.tel)
+                        </th>
 
-        <th></th>
-    </tr>
+                        <th></th>
+                    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.numClient)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.login)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.mdp)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.prenom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ville)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tel)
-            </td>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.numClient)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.login)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.mdp)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.nom)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.prenom)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ville)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.tel)
+                            </td>
 
-            <td>
-                @Html.ActionLink(@ProjetAsp.Resources.HomeTexts.Edit, "EditClient", new { id = item.numClient }) |
-                @Html.ActionLink(@ProjetAsp.Resources.HomeTexts.Delete, "DeleteClient", new { id = item.numClient })
-            </td>
-        </tr>
-    }
+                            <td>
+                                @Html.ActionLink(@ProjetAsp.Resources.HomeTexts.Edit, "EditClient", new { id = item.numClient }) |
+                                @Html.ActionLink(@ProjetAsp.Resources.HomeTexts.Delete, "DeleteClient", new { id = item.numClient })
+                            </td>
+                        </tr>
+                    }
 
-</table>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

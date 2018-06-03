@@ -22,7 +22,7 @@ namespace ProjetAsp.Services
         IEnumerable<String> getBrand();
         IEnumerable<Article> getArticleByCatorBrand(string cat, string brand, double prixmin, double prixmax);
         IEnumerable<Article> getHotdeals();
-
+        int nbarticleVendu();
 
     }
 }

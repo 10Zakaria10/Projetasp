@@ -1,10 +1,12 @@
-﻿using ProjetAsp.Services;
+﻿using ProjetAsp.Models;
+using ProjetAsp.Services;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace ProjetAsp.Controllers
@@ -31,6 +33,8 @@ namespace ProjetAsp.Controllers
             ViewBag.favoris = s4.getFavorisClient(9999);
             ViewBag.qtqfavoris = s4.totalFavorisClient(9999);
             ViewBag.totalcart = s2.totalClient(9999);
+            ViewBag.LastCommande = s2.getLastCommande();
+
 
 
 
@@ -39,8 +43,16 @@ namespace ProjetAsp.Controllers
         // GET: Langage
         public ActionResult Index()
         {
-            var view = View();
-            view.MasterName = "_nob";
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
             return View("ChooseLanguage");
         }
 
@@ -59,5 +71,7 @@ namespace ProjetAsp.Controllers
 
             return RedirectToAction("Index","AdminHome");
         }
+
+        
     }
 }

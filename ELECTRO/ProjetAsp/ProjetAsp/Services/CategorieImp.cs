@@ -8,7 +8,8 @@ namespace ProjetAsp.Services
 {
     public class CategorieImp : ICategorie
     {
-        prjcontext prj = new prjcontext();
+        PrjContext2 prj = new PrjContext2();
+
         public void CreateCat(Categorie cat)
         {
             prj.Categories.Add(cat);

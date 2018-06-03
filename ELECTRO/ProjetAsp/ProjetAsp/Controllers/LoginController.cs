@@ -56,14 +56,15 @@ namespace ProjetAsp.Controllers
             {
 
                 if(s0.isAdmin(person))
-                 {
-                     return RedirectToAction("Index", "Langage");
+                {
+                    Session["person"] = s0.GetClienById(person);
+
+                    return RedirectToAction("Index", "AdminHome");
                     
                  }
                  else
                  {
                          Session["person"] =s0.GetClienById(person) ;
-                    Session["zak"] = "zki";
                          return RedirectToAction("Index", "Home");
                     
                  }

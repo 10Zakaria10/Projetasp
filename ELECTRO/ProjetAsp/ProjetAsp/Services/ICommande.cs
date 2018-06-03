@@ -17,9 +17,9 @@ namespace ProjetAsp.Services
         int countCommandeClient(int idclient);
         void DeleteCommande(int idclient , int idart);
         float totalClient(int idclient);
-
-
-
+        IEnumerable<Commande> getLastCommande();
+        double thisweek();
+        double totalearn();
 
     }
 }

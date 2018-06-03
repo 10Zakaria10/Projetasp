@@ -14,7 +14,7 @@ namespace ProjetAsp.Controllers
 
         // GET: AdminHome
 
-        prjcontext prj = new prjcontext();
+        PrjContext2 prj = new PrjContext2();
         IClient s0;
         IArticle s1;
         ICommande s2;
@@ -26,15 +26,45 @@ namespace ProjetAsp.Controllers
             this.s1 = s1;
             this.s2 = s2;
             this.s3 = s3;
+            ViewBag.categories = s3.getAllCategorie();
+            ViewBag.articles = s1.getAllArticle();
+            ViewBag.TopSArticle = s1.getTopSeeledarticle();
+            ViewBag.num = s2.countCommandeClient(9999);
+            ViewBag.charts = s2.getCommandeById(9999);
+           ViewBag.totalcart = s2.totalClient(9999);
+            ViewBag.LastCommande = s2.getLastCommande();
+            ViewBag.nbclient = s0.countClients();
+            ViewBag.nbarticlevendu = s1.nbarticleVendu();
+            ViewBag.thisweek = s2.thisweek();
+            ViewBag.totalearn = s2.totalearn();
         }
 
         public ActionResult Index()
         {
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
             return View();
         }
 
         public ActionResult GestionClient()
         {
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
 
             return View("GestionClient", s0.getAllClient());
 
@@ -43,6 +73,16 @@ namespace ProjetAsp.Controllers
         [HttpPost]
         public ActionResult GestionClient(string searchitem)
         {
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
             if (string.IsNullOrEmpty(searchitem))
             {
                 return View("GestionClient", s0.getAllClient());
@@ -58,12 +98,32 @@ namespace ProjetAsp.Controllers
 
         public ActionResult EditClient(int id)
         {
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
             return View("EditClient",s0.GetClienById(id));
         }
 
         [HttpPost]
         public ActionResult EditClient(Client cl)
         {
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
             s0.EditClient(cl);
 
             return RedirectToAction("GestionClient",s0.getAllClient());
@@ -73,6 +133,16 @@ namespace ProjetAsp.Controllers
 
         public ActionResult DeleteClient(int id)
         {
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
             s0.DeleteClient(id);
             return View("GestionClient", s0.getAllClient());
 
@@ -83,6 +153,16 @@ namespace ProjetAsp.Controllers
 
         public ActionResult GestionArticle()
         {
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
             ViewBag.e = new SelectList(prj.Categories, "refCat", "nomCat");
             return View("GestionArticle",s1.getAllArticle());
         }
@@ -91,6 +171,16 @@ namespace ProjetAsp.Controllers
         [HttpPost]
         public ActionResult ChercherArticle(FormCollection formx)
         {
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
             ViewBag.e = new SelectList(prj.Categories, "refCat", "nomCat");
 
             try { 
@@ -106,6 +196,16 @@ namespace ProjetAsp.Controllers
 
         public ActionResult DeleteArticle(int id)
         {
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
             s1.DeleteArticle(id);
             return RedirectToAction("GestionArticle");
 
@@ -114,6 +214,15 @@ namespace ProjetAsp.Controllers
 
         public ActionResult EditArticle(int id)
         {
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
 
             return View("EditArticle", s1.getArticleById(id));
 
@@ -122,21 +231,42 @@ namespace ProjetAsp.Controllers
         [HttpPost]
         public ActionResult EditArticle(Article cl)
         {
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
             s1.EditArticle(cl);
             return RedirectToAction("GestionArticle");
 
         }
 
-        
+
+
+
         public ActionResult CreateArticle()
         {
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
             return View("CreateArticle");
         }
         [HttpPost]
         public ActionResult CreateArticle(Article art)
         {
             try {
-               
                 String filename = System.IO.Path.GetFileNameWithoutExtension(art.Imagefile.FileName);
                 String extension = System.IO.Path.GetExtension(art.Imagefile.FileName);
                 filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
@@ -144,7 +274,6 @@ namespace ProjetAsp.Controllers
                 filename = System.IO.Path.Combine(Server.MapPath("~/Images"), filename);
                 art.Imagefile.SaveAs(filename);
                 s1.CreateArticle(art);
-                
             }catch(Exception e)
             {
                 ViewBag.err = "ERREUR";
@@ -157,14 +286,21 @@ namespace ProjetAsp.Controllers
 
         public ActionResult StatistiquePage()
         {
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
 
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
             return View("StatistiquePage");
         }
 
         public ActionResult myChart()
         {
-            var art = s3.getAllCategorie();
-
+            var art = s3.getAllCategorie();
             List<String> xv = new List<string>();
 
             List<int> yv = new List<int>();
@@ -178,7 +314,7 @@ namespace ProjetAsp.Controllers
 
             }
 
-            new Chart(width: 800, height: 300).AddTitle(ProjetAsp.Resources.HomeTexts.TitireStatistique).AddSeries(
+            new Chart(width: 1200, height: 400).AddTitle(ProjetAsp.Resources.HomeTexts.TitireStatistique).AddSeries(
 
                 chartType: "Column",
                 xValue: xv.ToArray(),
@@ -188,11 +324,9 @@ namespace ProjetAsp.Controllers
             return null;
         }
 
-
         public ActionResult ChartProduit()
         {
-            var art = s1.getAllArticle();
-
+            var art = s1.getAllArticle();
             List<String> xv = new List<string>();
 
             List<int> yv = new List<int>();
@@ -206,7 +340,7 @@ namespace ProjetAsp.Controllers
 
             }
 
-            var Mychart = new Chart(width: 900, height: 600)
+            var Mychart = new Chart(width: 1200, height: 600)
            .AddTitle(ProjetAsp.Resources.HomeTexts.TitireStatistiqueRound).AddLegend(" ")
              .AddSeries("Default", chartType: "pie",
                  xValue: xv, xField: "noob",
@@ -217,6 +351,15 @@ namespace ProjetAsp.Controllers
 
         public ActionResult GestionCat()
         {
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
             return View(s3.getAllCategorie());
         }
 
@@ -229,6 +372,15 @@ namespace ProjetAsp.Controllers
 
         public ActionResult EditCat(int id)
         {
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
 
             return View(s3.getCatById(id));
         }
@@ -243,6 +395,15 @@ namespace ProjetAsp.Controllers
 
         public ActionResult CreateCat ()
         {
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
             return View();
         }
         [HttpPost]

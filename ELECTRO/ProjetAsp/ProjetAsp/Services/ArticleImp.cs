@@ -8,13 +8,16 @@ namespace ProjetAsp.Services
 {
     public class ArticleImp : IArticle
     {
-        prjcontext prj = new prjcontext();
+        PrjContext2 prj = new PrjContext2();
 
 
         public void CreateArticle(Article art)
         {
+            art.vendu = 0;
+            art.rating = 0; 
             prj.Articles.Add(art);
             prj.SaveChanges();
+
         }
 
         public void DeleteArticle(int id)
@@ -38,7 +41,8 @@ namespace ProjetAsp.Services
             x.refcat = cl.refcat;
             x.stock = cl.stock;
             prj.SaveChanges();
-            
+
+
         }
 
         public IEnumerable<Article> getAllArticle()
@@ -77,7 +81,12 @@ namespace ProjetAsp.Services
 
             }
 
-            
+
+
+
+
+
+
         }
 
         public Article getArticleById(int id)
@@ -125,6 +134,18 @@ namespace ProjetAsp.Services
         public IEnumerable<Article> getTopSeelingArticleByrefCat(int id)
         {
             return from c in prj.Articles where c.refcat == id orderby c.vendu descending select c;
+        }
+
+        public int nbarticleVendu()
+        {
+            var x =from c in prj.Articles select c;
+            int somme = 0;
+            foreach(var i in x)
+            {
+                somme = Convert.ToInt32(somme + i.vendu);
+            }
+
+            return somme;
         }
     }
 }
