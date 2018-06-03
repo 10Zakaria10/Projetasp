@@ -8,7 +8,7 @@ namespace ProjetAsp.Services
 {
     public class CommandeImp : ICommande
     {
-        PrjContext2 prj = new PrjContext2();
+        prjcontext prj = new prjcontext();
 
         public void AjouteCommande(int person, int idarticle, int qte)
         {

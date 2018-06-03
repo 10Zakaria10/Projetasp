@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PrjModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="projetAsp2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Article">
           <Key>
             <PropertyRef Name="numArticle" />
@@ -147,7 +147,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PrjModelStoreContainer">
+        <EntityContainer Name="projetAsp2ModelStoreContainer">
           <EntitySet Name="Article" EntityType="Self.Article" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categorie" EntityType="Self.Categorie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
@@ -179,10 +179,11 @@
             <End Role="Favoris" EntitySet="Favoris" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="PrjModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="projetAsp2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Article">
           <Key>
             <PropertyRef Name="numArticle" />
@@ -203,8 +204,8 @@
           <Property Name="refcat" Type="Int32" />
           <NavigationProperty Name="Categorie" Relationship="Self.FK_Article_Categorie" FromRole="Article" ToRole="Categorie" />
           <NavigationProperty Name="Commandes" Relationship="Self.FK_Commande_Article" FromRole="Article" ToRole="Commande" />
+          <NavigationProperty Name="Commentaires" Relationship="Self.FK_Commentaire_Article" FromRole="Article" ToRole="Commentaire" />
           <NavigationProperty Name="Favoris" Relationship="Self.FK_Favoris_Article" FromRole="Article" ToRole="Favoris" />
-          <NavigationProperty Name="Commentaires" Relationship="PrjModel.FK_Commentaire_Article" FromRole="Article" ToRole="Commentaire" />
         </EntityType>
         <EntityType Name="Categorie">
           <Key>
@@ -243,6 +244,18 @@
           <NavigationProperty Name="Article" Relationship="Self.FK_Commande_Article" FromRole="Commande" ToRole="Article" />
           <NavigationProperty Name="Client" Relationship="Self.FK_Commande_Client" FromRole="Commande" ToRole="Client" />
         </EntityType>
+        <EntityType Name="Commentaire">
+          <Key>
+            <PropertyRef Name="idcom" />
+          </Key>
+          <Property Name="idcom" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomclient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="commentaire1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="rating" Type="Double" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="numart" Type="Int32" />
+          <NavigationProperty Name="Article" Relationship="Self.FK_Commentaire_Article" FromRole="Commentaire" ToRole="Article" />
+        </EntityType>
         <EntityType Name="Favori">
           <Key>
             <PropertyRef Name="idfav" />
@@ -274,6 +287,18 @@
             </Principal>
             <Dependent Role="Commande">
               <PropertyRef Name="numarticle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Commentaire_Article">
+          <End Role="Article" Type="Self.Article" Multiplicity="0..1" />
+          <End Role="Commentaire" Type="Self.Commentaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="numArticle" />
+            </Principal>
+            <Dependent Role="Commentaire">
+              <PropertyRef Name="numart" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -313,11 +338,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PrjContext2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="prjcontext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Articles" EntityType="Self.Article" />
           <EntitySet Name="Categories" EntityType="Self.Categorie" />
           <EntitySet Name="Clients" EntityType="Self.Client" />
           <EntitySet Name="Commandes" EntityType="Self.Commande" />
+          <EntitySet Name="Commentaires" EntityType="Self.Commentaire" />
           <EntitySet Name="Favoris" EntityType="Self.Favori" />
           <AssociationSet Name="FK_Article_Categorie" Association="Self.FK_Article_Categorie">
             <End Role="Categorie" EntitySet="Categories" />
@@ -326,6 +352,10 @@
           <AssociationSet Name="FK_Commande_Article" Association="Self.FK_Commande_Article">
             <End Role="Article" EntitySet="Articles" />
             <End Role="Commande" EntitySet="Commandes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Commentaire_Article" Association="Self.FK_Commentaire_Article">
+            <End Role="Article" EntitySet="Articles" />
+            <End Role="Commentaire" EntitySet="Commentaires" />
           </AssociationSet>
           <AssociationSet Name="FK_Favoris_Article" Association="Self.FK_Favoris_Article">
             <End Role="Article" EntitySet="Articles" />
@@ -339,44 +369,15 @@
             <End Role="Client" EntitySet="Clients" />
             <End Role="Favoris" EntitySet="Favoris" />
           </AssociationSet>
-          <EntitySet Name="Commentaires" EntityType="PrjModel.Commentaire" />
-          <AssociationSet Name="FK_Commentaire_Article" Association="PrjModel.FK_Commentaire_Article">
-            <End Role="Article" EntitySet="Articles" />
-            <End Role="Commentaire" EntitySet="Commentaires" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Commentaire">
-          <Key>
-            <PropertyRef Name="idcom" />
-          </Key>
-          <Property Name="idcom" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nomclient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="commentaire1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="rating" Type="Double" />
-          <Property Name="date" Type="DateTime" Precision="0" />
-          <Property Name="numart" Type="Int32" />
-          <NavigationProperty Name="Article" Relationship="PrjModel.FK_Commentaire_Article" FromRole="Commentaire" ToRole="Article" />
-        </EntityType>
-        <Association Name="FK_Commentaire_Article">
-          <End Type="PrjModel.Article" Role="Article" Multiplicity="0..1" />
-          <End Type="PrjModel.Commentaire" Role="Commentaire" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Article">
-              <PropertyRef Name="numArticle" />
-            </Principal>
-            <Dependent Role="Commentaire">
-              <PropertyRef Name="numart" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PrjModelStoreContainer" CdmEntityContainer="PrjContext2">
+        <EntityContainerMapping StorageEntityContainer="projetAsp2ModelStoreContainer" CdmEntityContainer="prjcontext">
           <EntitySetMapping Name="Articles">
-            <EntityTypeMapping TypeName="PrjModel.Article">
+            <EntityTypeMapping TypeName="projetAsp2Model.Article">
               <MappingFragment StoreEntitySet="Article">
                 <ScalarProperty Name="numArticle" ColumnName="numArticle" />
                 <ScalarProperty Name="designation" ColumnName="designation" />
@@ -396,7 +397,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="PrjModel.Categorie">
+            <EntityTypeMapping TypeName="projetAsp2Model.Categorie">
               <MappingFragment StoreEntitySet="Categorie">
                 <ScalarProperty Name="refcat" ColumnName="refcat" />
                 <ScalarProperty Name="nomCat" ColumnName="nomCat" />
@@ -405,7 +406,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Clients">
-            <EntityTypeMapping TypeName="PrjModel.Client">
+            <EntityTypeMapping TypeName="projetAsp2Model.Client">
               <MappingFragment StoreEntitySet="Client">
                 <ScalarProperty Name="numClient" ColumnName="numClient" />
                 <ScalarProperty Name="login" ColumnName="login" />
@@ -420,7 +421,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Commandes">
-            <EntityTypeMapping TypeName="PrjModel.Commande">
+            <EntityTypeMapping TypeName="projetAsp2Model.Commande">
               <MappingFragment StoreEntitySet="Commande">
                 <ScalarProperty Name="numcmd" ColumnName="numcmd" />
                 <ScalarProperty Name="datecmd" ColumnName="datecmd" />
@@ -430,24 +431,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Commentaires">
+            <EntityTypeMapping TypeName="projetAsp2Model.Commentaire">
+              <MappingFragment StoreEntitySet="Commentaire">
+                <ScalarProperty Name="idcom" ColumnName="idcom" />
+                <ScalarProperty Name="nomclient" ColumnName="nomclient" />
+                <ScalarProperty Name="commentaire1" ColumnName="commentaire" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="numart" ColumnName="numart" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Favoris">
-            <EntityTypeMapping TypeName="PrjModel.Favori">
+            <EntityTypeMapping TypeName="projetAsp2Model.Favori">
               <MappingFragment StoreEntitySet="Favoris">
                 <ScalarProperty Name="idfav" ColumnName="idfav" />
                 <ScalarProperty Name="idclient" ColumnName="idclient" />
                 <ScalarProperty Name="idarticle" ColumnName="idarticle" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Commentaires">
-            <EntityTypeMapping TypeName="PrjModel.Commentaire">
-              <MappingFragment StoreEntitySet="Commentaire">
-                <ScalarProperty Name="numart" ColumnName="numart" />
-                <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="rating" ColumnName="rating" />
-                <ScalarProperty Name="commentaire1" ColumnName="commentaire" />
-                <ScalarProperty Name="nomclient" ColumnName="nomclient" />
-                <ScalarProperty Name="idcom" ColumnName="idcom" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -468,7 +469,7 @@
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

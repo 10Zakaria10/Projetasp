@@ -9,8 +9,7 @@ namespace ProjetAsp.Models
     public class ClientImp : IClient
 
     {
-        PrjContext2 prj = new PrjContext2();
-
+        prjcontext prj = new prjcontext();
         public void DeleteClient(int id)
         {
             var x = (from c in prj.Clients where c.numClient == id select c).SingleOrDefault();
@@ -25,10 +24,10 @@ namespace ProjetAsp.Models
         {
 
             var x = (from c in prj.Clients where c.numClient == cl.numClient select c).SingleOrDefault();
+            x.numClient = cl.numClient;
             x.nom = cl.nom;
             x.login = cl.login;
             x.mdp = cl.mdp;
-            x.numClient = cl.numClient;
             x.prenom = cl.prenom;
             x.tel = cl.tel;
             x.ville = cl.ville;
@@ -79,14 +78,12 @@ namespace ProjetAsp.Models
                 return true;
             }
 
-
         }
 
         public Boolean SeConnecter(Client person)
         {
 
             var x = from c in prj.Clients where c.login == person.login && c.mdp == person.mdp select c;
-
 
             if (x.Count() > 0)
             {

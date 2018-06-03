@@ -8,8 +8,7 @@ namespace ProjetAsp.Services
 {
     public class CommentaireImp : ICommentaire
     {
-        PrjContext2 prj = new PrjContext2();
-
+        prjcontext prj = new prjcontext();
         public void AjoutezCommentaire(string nom, string comm, float rating, int numart)
         {
             DateTime localDate = DateTime.Now;

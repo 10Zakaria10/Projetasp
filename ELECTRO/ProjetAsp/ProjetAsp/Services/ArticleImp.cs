@@ -8,14 +8,13 @@ namespace ProjetAsp.Services
 {
     public class ArticleImp : IArticle
     {
-        PrjContext2 prj = new PrjContext2();
+        prjcontext prj = new prjcontext();
 
 
         public void CreateArticle(Article art)
         {
             prj.Articles.Add(art);
             prj.SaveChanges();
-
         }
 
         public void DeleteArticle(int id)
@@ -39,8 +38,7 @@ namespace ProjetAsp.Services
             x.refcat = cl.refcat;
             x.stock = cl.stock;
             prj.SaveChanges();
-
-
+            
         }
 
         public IEnumerable<Article> getAllArticle()
@@ -79,12 +77,7 @@ namespace ProjetAsp.Services
 
             }
 
-
-
-
-
-
-
+            
         }
 
         public Article getArticleById(int id)

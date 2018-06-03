@@ -11,8 +11,7 @@ namespace ProjetAsp.Controllers
     {
         // GET: Acceuil
 
-        PrjContext2 prj = new PrjContext2();
-
+        prjcontext prj = new prjcontext();
         IArticle s1;
         ICommande s2;
         ICategorie s3;
@@ -28,7 +27,9 @@ namespace ProjetAsp.Controllers
 
         public ActionResult Index()
         {
-            Client person = (Client)Session["person"];
+            Client person = (Client)Session["person"];
+
+
             return View(person);
         }
 
@@ -46,7 +47,8 @@ namespace ProjetAsp.Controllers
 
         public ActionResult Visualisez()
         {
-            Client person = (Client)Session["person"];
+            Client person = (Client)Session["person"];
+
             var x = s2.getCommandeById(person.numClient);
 
             double prix = 0;
@@ -74,7 +76,9 @@ namespace ProjetAsp.Controllers
         public ActionResult AjouterPanier()
         {
             ViewBag.e = new SelectList(s3.getAllCategorie(), "refCat", "nomCat");
-            Client person = (Client)Session["person"];
+
+            Client person = (Client)Session["person"];
+
             var x = s2.getCommandeById(person.numClient);
            
             return View(x);
@@ -84,7 +88,9 @@ namespace ProjetAsp.Controllers
         public ActionResult AjouterPanier(FormCollection formx)
         {
             ViewBag.e = new SelectList(s3.getAllCategorie(), "refCat", "nomCat");
-                       Client person = (Client)Session["person"];
+           
+            Client person = (Client)Session["person"];
+
             var x = s2.getCommandeById(person.numClient);
 
             int contenu = Int32.Parse(formx["contenu"]);

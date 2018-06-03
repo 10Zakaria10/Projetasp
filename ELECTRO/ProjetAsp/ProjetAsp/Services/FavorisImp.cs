@@ -8,8 +8,7 @@ namespace ProjetAsp.Services
 {
     public class FavorisImp : IFavoris
     {
-        PrjContext2 prj = new PrjContext2();
-        public void addtoFavoris(int id, int idclient)
+        prjcontext prj = new prjcontext(); public void addtoFavoris(int id, int idclient)
         {
             Favori fav = new Favori();
             fav.idclient = idclient;
