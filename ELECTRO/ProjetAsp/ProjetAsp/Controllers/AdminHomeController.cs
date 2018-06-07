@@ -49,9 +49,34 @@ namespace ProjetAsp.Controllers
             }
 
             Client cli = (Client)Session["person"];
+            if (cli.role == 1) { 
             ViewBag.cli = cli;
 
             return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login");
+            }
+        }
+
+        public PartialViewResult AfficherEtd()
+        {
+            string id = Request.Form["searchitem"];
+
+            if (string.IsNullOrEmpty(id))
+            {
+                return PartialView("_AfficherDetails", s0.getAllClient());
+
+            }
+            else
+            {
+                return PartialView("_AfficherDetails", s0.getAllClientStartWith(id));
+               
+
+            }
+            
+
         }
 
         public ActionResult GestionClient()

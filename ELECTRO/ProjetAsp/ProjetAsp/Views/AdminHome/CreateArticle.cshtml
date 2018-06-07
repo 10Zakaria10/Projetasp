@@ -12,7 +12,7 @@
     <div class="section__content section__content--p30">
         <div class="container-fluid">
             <div class="row">
-                <h2>@ProjetAsp.Resources.HomeTexts.CreateArt</h2>
+
                 @ViewBag.err
 
                 @using (Html.BeginForm("CreateArticle", "AdminHome", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -20,7 +20,7 @@
                     @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
-                    <h4>Article</h4>
+               
                     <hr />
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })

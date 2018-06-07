@@ -30,7 +30,7 @@ namespace ProjetAsp.Controllers
             ViewBag.articles = s1.getAllArticle();
             ViewBag.TopSArticle = s1.getTopSeeledarticle();
 
-
+            ViewBag.sessionkayna = false;
         }
 
 

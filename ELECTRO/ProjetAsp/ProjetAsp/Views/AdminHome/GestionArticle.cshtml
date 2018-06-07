@@ -28,6 +28,19 @@
 
 </script>
 
+<script>
+
+    $(function () {
+
+        $("#contenu").change(function () {
+            $("#sercharticle").submit();
+
+
+        });
+    });
+
+</script>
+
 
 
 <div class="main-content">
@@ -35,10 +48,8 @@
         <div class="container-fluid">
             <div class="row">
 
-                <h2>@ProjetAsp.Resources.HomeTexts.GestionArticle</h2>
+                <form action="/AdminHome/ChercherArticle" method="post" id="sercharticle">
 
-                @using (Html.BeginForm("ChercherArticle", "AdminHome", FormMethod.Post))
-                {
                     <table>
 
                         <tr>
@@ -55,12 +66,11 @@
                             </td>
                         </tr>
 
-                        <tr>
-                            <td><button type="submit">@ProjetAsp.Resources.HomeTexts.Search</button></td>
-                        </tr>
+                        <tr></tr>
                     </table>
 
-                }
+
+                </form>
 
                 <br />
 
@@ -69,58 +79,49 @@
                 <p>
                     @Html.ActionLink(@ProjetAsp.Resources.HomeTexts.CreateArt, "CreateArticle")
                 </p>
-                <table class="table">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.numArticle)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.designation)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.prixU)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.stock)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.photo)
-                        </th>
-                        <th>
-                            Categorie
-                        </th>
-                        <th></th>
-                    </tr>
 
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.numArticle)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.designation)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.prixU)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.stock)
-                            </td>
-                            <td>
-                                <img src="@Url.Content(item.photo)" />
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Categorie.nomCat)
-                            </td>
-                            <td>
-                                @Html.ActionLink(ProjetAsp.Resources.HomeTexts.Edit, "EditArticle", new { id = item.numArticle }) |
-                                @Html.ActionLink(ProjetAsp.Resources.HomeTexts.Delete, "DeleteArticle", new { id = item.numArticle })
-                            </td>
-                        </tr>
-                    }
 
-                </table>
+                <div class="table-responsive table--no-card m-b-40">
+                    <table class="table table-borderless table-striped table-earning">
+                        <thead>
+                            <tr>
+                                <th>Num Article</th>
+                                <th>Designation</th>
+                                <th>PrixU</th>
+                                <th class="text-right">Stock</th>
+                                <th class="text-right">Photo</th>
+                                <th class="text-right">Categorie</th>
+                                <th class="text-right">Setting</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var x in Model)
+                            {
+
+                                <tr>
+                                    <td>@x.numArticle</td>
+                                    <td>@x.designation</td>
+
+                                    <td>$@x.prixU</td>
+                                    <td class="text-right">@x.stock</td>
+                                    <td style="width:200px; height:200px;">
+                                        <img src="@Url.Content(x.photo)" />
+                                    </td>
+                                    <td class="text-right">$@x.Categorie.refcat</td>
+
+
+                                    <td class="text-center">
+                                        @Html.ActionLink(ProjetAsp.Resources.HomeTexts.Edit, "EditArticle", new { id = x.numArticle }) |
+                                        @Html.ActionLink(ProjetAsp.Resources.HomeTexts.Delete, "DeleteArticle", new { id = x.numArticle })
+                                    </td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
     </div>

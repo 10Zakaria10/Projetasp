@@ -14,14 +14,11 @@
         <div class="container-fluid">
             <div class="row">
 
-                <h2>@ProjetAsp.Resources.HomeTexts.EditArt</h2>
-
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
-                    <h4>Article</h4>
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group">

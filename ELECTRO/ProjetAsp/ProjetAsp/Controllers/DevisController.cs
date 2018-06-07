@@ -28,6 +28,7 @@ namespace ProjetAsp.Controllers
             this.s5 = s5;
 
             ViewBag.categories = s3.getAllCategorie();
+            ViewBag.sessionkayna = true;
 
 
 

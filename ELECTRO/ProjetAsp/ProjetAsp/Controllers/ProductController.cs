@@ -27,6 +27,7 @@ namespace ProjetAsp.Controllers
 
             ViewBag.categories = s3.getAllCategorie();
 
+            ViewBag.sessionkayna = true;
 
 
 

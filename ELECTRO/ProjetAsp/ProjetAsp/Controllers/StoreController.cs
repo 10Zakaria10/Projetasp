@@ -24,6 +24,8 @@ namespace ProjetAsp.Controllers
             this.s2 = s2;
             this.s3 = s3;
             this.s4 = s4;
+            ViewBag.sessionkayna = true;
+
             ViewBag.categories = s3.getAllCategorie();
             ViewBag.articles = s1.getAllArticle();
             ViewBag.TopSArticle = s1.getTopSeeledarticle();

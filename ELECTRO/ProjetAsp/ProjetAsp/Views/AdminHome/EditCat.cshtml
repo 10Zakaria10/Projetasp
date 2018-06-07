@@ -12,14 +12,12 @@
     <div class="section__content section__content--p30">
         <div class="container-fluid">
             <div class="row">
-                <h2>@ProjetAsp.Resources.HomeTexts.EditCat</h2>
 
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
 
                     <div class="form-horizontal">
-                        <h4>Categorie</h4>
                         <hr />
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">

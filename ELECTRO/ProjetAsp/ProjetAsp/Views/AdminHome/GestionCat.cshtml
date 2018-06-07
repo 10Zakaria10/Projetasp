@@ -13,39 +13,45 @@
         <div class="container-fluid">
             <div class="row">
 
-                <h2>@ProjetAsp.Resources.HomeTexts.GestionCategorie</h2>
-
                 <p>
-                    @Html.ActionLink(ProjetAsp.Resources.HomeTexts.CreateCat, "CreateCat")
+                    <h4>@Html.ActionLink(ProjetAsp.Resources.HomeTexts.CreateCat, "CreateCat")</h4>
                 </p>
-                <table class="table">
+                
+                <br />
+                <div class="table-responsive table--no-card m-b-40">
+                    <table class="table table-borderless table-striped table-earning">
+                        <thead>
+                            <tr>
+                                <th>Ref Categorie</th>
+                                <th>Nom Categrie</th>
+                                <th>Photo</th>
+                                <th>Setting</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var x in Model)
+                {
+
                     <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.refcat)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.nomCat)
-                        </th>
-                        <th></th>
+                        <td>@x.refcat</td>
+                        <td>@x.nomCat</td>
+
+                        <td style="width:200px; height:120px;">
+                            <img src="@Url.Content(x.photo)" />
+                        </td>
+                        <td class="text-center">
+                            <h4>
+                                @Html.ActionLink(ProjetAsp.Resources.HomeTexts.Edit, "EditCat", new { id = x.refcat }) |
+                                @Html.ActionLink(ProjetAsp.Resources.HomeTexts.Delete, "DeleteCat", new { id = x.refcat })
+                            </h4>
+                        </td>
                     </tr>
 
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.refcat)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.nomCat)
-                            </td>
-                            <td>
-                                @Html.ActionLink(ProjetAsp.Resources.HomeTexts.Edit, "EditCat", new { id = item.refcat }) |
-                                @Html.ActionLink(ProjetAsp.Resources.HomeTexts.Delete, "DeleteCat", new { id = item.refcat })
-                            </td>
-                        </tr>
-                    }
+    }
+                        </tbody>
+                    </table>
+                </div>
 
-                </table>
             </div>
         </div>
     </div>
