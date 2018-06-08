@@ -41,6 +41,7 @@ namespace ProjetAsp.Controllers
 
         public ActionResult Index()
         {
+<<<<<<< HEAD
             try
             {
                 if (Session["person"] == null)
@@ -65,10 +66,30 @@ namespace ProjetAsp.Controllers
                 return View("Error");
             }
             
+=======
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            if (cli.role == 1) { 
+            ViewBag.cli = cli;
+
+            return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login");
+            }
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
         }
 
         public PartialViewResult AfficherEtd()
         {
+<<<<<<< HEAD
             
                 string id = Request.Form["searchitem"];
 
@@ -82,10 +103,28 @@ namespace ProjetAsp.Controllers
                     return PartialView("_AfficherDetails", s0.getAllClientStartWith(id));
                 }
             
+=======
+            string id = Request.Form["searchitem"];
+
+            if (string.IsNullOrEmpty(id))
+            {
+                return PartialView("_AfficherDetails", s0.getAllClient());
+
+            }
+            else
+            {
+                return PartialView("_AfficherDetails", s0.getAllClientStartWith(id));
+               
+
+            }
+            
+
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
         }
 
         public ActionResult GestionClient()
         {
+<<<<<<< HEAD
             try
             {
                 if (Session["person"] == null)
@@ -105,11 +144,26 @@ namespace ProjetAsp.Controllers
                 return View("Error");
             }
            
+=======
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
+            return View("GestionClient", s0.getAllClient());
+
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
         }
 
         [HttpPost]
         public ActionResult GestionClient(string searchitem)
         {
+<<<<<<< HEAD
             try
             {
                 if (Session["person"] == null)
@@ -134,11 +188,34 @@ namespace ProjetAsp.Controllers
                 return View("Error");
             }
         
+=======
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
+            if (string.IsNullOrEmpty(searchitem))
+            {
+                return View("GestionClient", s0.getAllClient());
+
+            }
+            else
+            {
+                return View("GestionClient", s0.getAllClientStartWith(searchitem));
+
+            }
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
         }
 
 
         public ActionResult EditClient(int id)
         {
+<<<<<<< HEAD
             try
             {
 
@@ -156,11 +233,25 @@ namespace ProjetAsp.Controllers
             {
                 return View("Error");
             }
+=======
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
+            return View("EditClient",s0.GetClienById(id));
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
         }
 
         [HttpPost]
         public ActionResult EditClient(Client cl)
         {
+<<<<<<< HEAD
             try
             {
                 if (Session["person"] == null)
@@ -179,11 +270,28 @@ namespace ProjetAsp.Controllers
             {
                 return View("Error");
             }
+=======
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
+            s0.EditClient(cl);
+
+            return RedirectToAction("GestionClient",s0.getAllClient());
+
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
         }
 
 
         public ActionResult DeleteClient(int id)
         {
+<<<<<<< HEAD
             try
             {
                 if (Session["person"] == null)
@@ -201,6 +309,21 @@ namespace ProjetAsp.Controllers
             {
                 return View("Error");
             }
+=======
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
+            s0.DeleteClient(id);
+            return View("GestionClient", s0.getAllClient());
+
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
         }
 
 
@@ -208,6 +331,7 @@ namespace ProjetAsp.Controllers
 
         public ActionResult GestionArticle()
         {
+<<<<<<< HEAD
             try
             {
                 if (Session["person"] == null)
@@ -226,12 +350,27 @@ namespace ProjetAsp.Controllers
                 return View("Error");
             }
             
+=======
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
+            ViewBag.e = new SelectList(prj.Categories, "refCat", "nomCat");
+            return View("GestionArticle",s1.getAllArticle());
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
         }
 
 
         [HttpPost]
         public ActionResult ChercherArticle(FormCollection formx)
         {
+<<<<<<< HEAD
             try
             {
                 if (Session["person"] == null)
@@ -260,10 +399,34 @@ namespace ProjetAsp.Controllers
                 return View("Error");
             }
             
+=======
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
+            ViewBag.e = new SelectList(prj.Categories, "refCat", "nomCat");
+
+            try { 
+            int contenu = Int32.Parse(formx["contenu"]);
+
+            return View("GestionArticle",s1.getArticleByIdV2(contenu));
+            }catch(Exception e)
+            {
+                return View("GestionArticle", s1.getAllArticle());
+
+            }
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
         }
 
         public ActionResult DeleteArticle(int id)
         {
+<<<<<<< HEAD
             try
             {
                 if (Session["person"] == null)
@@ -283,11 +446,27 @@ namespace ProjetAsp.Controllers
                 return View("Error");
             }
             
+=======
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
+            s1.DeleteArticle(id);
+            return RedirectToAction("GestionArticle");
+
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
         }
 
 
         public ActionResult EditArticle(int id)
         {
+<<<<<<< HEAD
             try
             {
                 if (Session["person"] == null)
@@ -305,11 +484,26 @@ namespace ProjetAsp.Controllers
                 return View("Error");
             }
 
+=======
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
+            return View("EditArticle", s1.getArticleById(id));
+
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
         }
 
         [HttpPost]
         public ActionResult EditArticle(Article cl)
         {
+<<<<<<< HEAD
             try
             {
                 if (Session["person"] == null)
@@ -328,6 +522,21 @@ namespace ProjetAsp.Controllers
                 return View("Error");
             }
 
+=======
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
+            s1.EditArticle(cl);
+            return RedirectToAction("GestionArticle");
+
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
         }
 
 
@@ -335,6 +544,7 @@ namespace ProjetAsp.Controllers
 
         public ActionResult CreateArticle()
         {
+<<<<<<< HEAD
             try
             {
                 if (Session["person"] == null)
@@ -351,12 +561,26 @@ namespace ProjetAsp.Controllers
             {
                 return View("Error");
             }
+=======
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
+            return View("CreateArticle");
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
         }
         [HttpPost]
         public ActionResult CreateArticle(Article art)
         {
             try
             {
+<<<<<<< HEAD
                 try
                 {
                     String filename = System.IO.Path.GetFileNameWithoutExtension(art.Imagefile.FileName);
@@ -378,12 +602,29 @@ namespace ProjetAsp.Controllers
             {
                 return View("Error");
             }
+=======
+                String filename = System.IO.Path.GetFileNameWithoutExtension(art.Imagefile.FileName);
+                String extension = System.IO.Path.GetExtension(art.Imagefile.FileName);
+                filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
+                art.photo = "~/Images/" + filename;
+                filename = System.IO.Path.Combine(Server.MapPath("~/Images"), filename);
+                art.Imagefile.SaveAs(filename);
+                s1.CreateArticle(art);
+            }
+            catch (Exception e)
+            {
+                ViewBag.err = "ERREUR";
+                return View("CreateArticle");
+            }
+            return RedirectToAction("GestionArticle");
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
         }
 
 
 
         public ActionResult StatistiquePage()
         {
+<<<<<<< HEAD
             try
             {
                 if (Session["person"] == null)
@@ -399,10 +640,23 @@ namespace ProjetAsp.Controllers
             {
                 return View("Error");
             }
+=======
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+            return View("StatistiquePage");
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
         }
 
         public ActionResult myChart()
         {
+<<<<<<< HEAD
             try
             {
                 var art = s3.getAllCategorie();
@@ -433,10 +687,36 @@ namespace ProjetAsp.Controllers
             {
                 return View("Error");
             }
+=======
+            var art = s3.getAllCategorie();
+
+            List<String> xv = new List<string>();
+
+            List<int> yv = new List<int>();
+
+            foreach (var x in art)
+            {
+                var commande = s2.getCommandebyCat(x);
+
+                xv.Add(x.nomCat);
+                yv.Add(commande.Count());
+
+            }
+
+            new Chart(width: 1200, height: 400).AddTitle(ProjetAsp.Resources.HomeTexts.TitireStatistique).AddSeries(
+
+                chartType: "Column",
+                xValue: xv.ToArray(),
+                yValues: yv.ToArray()
+                ).Write("png");
+
+            return null;
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
         }
 
         public ActionResult ChartProduit()
         {
+<<<<<<< HEAD
             try
             {
                 var art = s1.getAllArticle();
@@ -466,10 +746,35 @@ namespace ProjetAsp.Controllers
             {
                 return View("Error");
             }
+=======
+            var art = s1.getAllArticle();
+
+            List<String> xv = new List<string>();
+
+            List<int> yv = new List<int>();
+
+            foreach (var x in art)
+            {
+                var commande = s2.getCommandebyArticle(x);
+
+                xv.Add(x.designation);
+                yv.Add(commande.Count());
+
+            }
+
+            var Mychart = new Chart(width: 1200, height: 600)
+           .AddTitle(ProjetAsp.Resources.HomeTexts.TitireStatistiqueRound).AddLegend(" ")
+             .AddSeries("Default", chartType: "pie",
+                 xValue: xv, xField: "noob",
+                 yValues: yv)
+            .GetBytes("png");
+            return File(Mychart, "image/png");
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
         }
 
         public ActionResult GestionCat()
         {
+<<<<<<< HEAD
             try
             {
                 if (Session["person"] == null)
@@ -485,10 +790,23 @@ namespace ProjetAsp.Controllers
             {
                 return View("Error");
             }
+=======
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+            return View(s3.getAllCategorie());
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
         }
 
         public ActionResult DeleteCat(int id)
         {
+<<<<<<< HEAD
             try
             {
                 s3.DeleteCat(id);
@@ -498,11 +816,16 @@ namespace ProjetAsp.Controllers
             {
                 return View("Error");
             }
+=======
+            s3.DeleteCat(id);
+            return RedirectToAction("GestionCat");
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
 
         }
 
         public ActionResult EditCat(int id)
         {
+<<<<<<< HEAD
             try
             {
                 if (Session["person"] == null)
@@ -521,12 +844,26 @@ namespace ProjetAsp.Controllers
             {
                 return View("Error");
             }
+=======
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+
+            return View(s3.getCatById(id));
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
         }
 
         [HttpPost]
         public ActionResult EditCat(Categorie cat)
         {
 
+<<<<<<< HEAD
             try
             {
                 s3.EditCat(cat);
@@ -536,10 +873,15 @@ namespace ProjetAsp.Controllers
             {
                 return View("Error");
             }
+=======
+            s3.EditCat(cat);
+            return RedirectToAction("GestionCat");
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
         }
 
         public ActionResult CreateCat ()
         {
+<<<<<<< HEAD
             try
             {
                 if (Session["person"] == null)
@@ -555,10 +897,23 @@ namespace ProjetAsp.Controllers
             {
                 return View("Error");
             }
+=======
+            if (Session["person"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+
+
+            }
+
+            Client cli = (Client)Session["person"];
+            ViewBag.cli = cli;
+            return View();
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
         }
         [HttpPost]
         public ActionResult CreateCat(Categorie cat)
         {
+<<<<<<< HEAD
             try
             {
                 s3.CreateCat(cat);
@@ -578,6 +933,10 @@ namespace ProjetAsp.Controllers
             }
             return RedirectToAction("Index", "Login");
 
+=======
+            s3.CreateCat(cat);
+            return RedirectToAction("GestionCat");
+>>>>>>> 1beb8021432c23e316f57e8ce18f77a3f7d08717
         }
     }
 }
