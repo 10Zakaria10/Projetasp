@@ -291,7 +291,8 @@ namespace ProjetAsp.Controllers
         [HttpPost]
         public ActionResult CreateArticle(Article art)
         {
-            try {
+            try
+            {
                 String filename = System.IO.Path.GetFileNameWithoutExtension(art.Imagefile.FileName);
                 String extension = System.IO.Path.GetExtension(art.Imagefile.FileName);
                 filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
@@ -299,7 +300,8 @@ namespace ProjetAsp.Controllers
                 filename = System.IO.Path.Combine(Server.MapPath("~/Images"), filename);
                 art.Imagefile.SaveAs(filename);
                 s1.CreateArticle(art);
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 ViewBag.err = "ERREUR";
                 return View("CreateArticle");
@@ -325,7 +327,8 @@ namespace ProjetAsp.Controllers
 
         public ActionResult myChart()
         {
-            var art = s3.getAllCategorie();
+            var art = s3.getAllCategorie();
+
             List<String> xv = new List<string>();
 
             List<int> yv = new List<int>();
@@ -351,7 +354,8 @@ namespace ProjetAsp.Controllers
 
         public ActionResult ChartProduit()
         {
-            var art = s1.getAllArticle();
+            var art = s1.getAllArticle();
+
             List<String> xv = new List<string>();
 
             List<int> yv = new List<int>();
