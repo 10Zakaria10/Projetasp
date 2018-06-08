@@ -39,21 +39,23 @@ namespace ProjetAsp.Controllers
         public ActionResult Index(int idclient)
         {
 
-            if (Session["person"] == null)
+            try
             {
-                return RedirectToAction("Index", "Login");
-
-
+                if (Session["person"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+                ViewBag.num = s2.countCommandeClient(idclient);
+                ViewBag.charts = s2.getCommandeById(idclient);
+                ViewBag.favoris = s4.getFavorisClient(idclient);
+                ViewBag.qtqfavoris = s4.totalFavorisClient(idclient);
+                ViewBag.totalcart = s2.totalClient(idclient);
+                return View(s0.GetClienById(idclient));
             }
-            ViewBag.num = s2.countCommandeClient(idclient);
-            ViewBag.charts = s2.getCommandeById(idclient);
-            ViewBag.favoris = s4.getFavorisClient(idclient);
-            ViewBag.qtqfavoris = s4.totalFavorisClient(idclient);
-            ViewBag.totalcart = s2.totalClient(idclient);
-
-
-
-            return View(s0.GetClienById(idclient));
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
         

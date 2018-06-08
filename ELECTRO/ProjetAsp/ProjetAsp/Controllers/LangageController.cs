@@ -43,33 +43,47 @@ namespace ProjetAsp.Controllers
         // GET: Langage
         public ActionResult Index()
         {
-            if (Session["person"] == null)
+            try
             {
-                return RedirectToAction("Index", "Login");
+                if (Session["person"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
+                }
 
+                Client cli = (Client)Session["person"];
+                ViewBag.cli = cli;
 
+                return View("ChooseLanguage");
             }
-
-            Client cli = (Client)Session["person"];
-            ViewBag.cli = cli;
-
-            return View("ChooseLanguage");
+            catch (Exception)
+            {
+                return View("Error");
+            }
+            
         }
 
 
         public ActionResult Change(String LanguageAbbrevation)
         {
-            if (LanguageAbbrevation != null)
+            try
             {
-                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(LanguageAbbrevation);
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo(LanguageAbbrevation);
+                if (LanguageAbbrevation != null)
+                {
+                    Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(LanguageAbbrevation);
+                    Thread.CurrentThread.CurrentUICulture = new CultureInfo(LanguageAbbrevation);
+                }
+
+                HttpCookie cookie = new HttpCookie("Language");
+                cookie.Value = LanguageAbbrevation;
+                Response.Cookies.Add(cookie);
+
+                return RedirectToAction("Index", "AdminHome");
             }
-
-            HttpCookie cookie = new HttpCookie("Language");
-            cookie.Value = LanguageAbbrevation;
-            Response.Cookies.Add(cookie);
-
-            return RedirectToAction("Index","AdminHome");
+            catch (Exception)
+            {
+                return View("Error");
+            }
+            
         }
 
         

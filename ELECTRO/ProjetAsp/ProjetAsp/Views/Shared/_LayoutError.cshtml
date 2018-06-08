@@ -89,7 +89,7 @@
 
                     @if (ViewBag.sessionkayna == true)
                     {
-                    <li><i class="fa fa-times-circle"></i>@Html.ActionLink("Se Deconnecter", "Logout", "Login")</li>
+                        <li><a href="#"><i class="fa fa-dollar"></i> Se Deconnecter</a></li>
                     }
                     else
                     {
@@ -118,108 +118,9 @@
                     </div>
                     <!-- /LOGO -->
                     <!-- SEARCH BAR -->
-                    <div class="col-md-6">
-                        <div class="header-search">
-                            <form>
-                                <select id="comboboxcat" class="input-select">
-                                    <option value="all">All Categories</option>
-
-                                    @foreach (var x in ViewBag.categories)
-                                    {
-                                        <option value=@x.nomCat>@x.nomCat</option>
-
-                                    }
-                                </select>
-                                <input class="input" id="searchere" placeholder="Search here">
-                                <button class="search-btn">Search</button>
-                            </form>
-                        </div>
-                    </div>
+                    
                     <!-- /SEARCH BAR -->
-                    <!-- ACCOUNT -->
-                    <div class="col-md-3 clearfix">
-                        <div class="header-ctn">
-                            <!-- Wishlist -->
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                    <i class="fa fa-heart-o"></i>
-                                    <span>Your Wishlist</span>
-                                    <div class="qty">@ViewBag.qtqfavoris</div>
-                                </a>
-                                <div class="cart-dropdown">
-                                    <div class="cart-list">
-                                        @foreach (var x in ViewBag.favoris)
-                                        {
-
-                                            <div class="product-widget">
-                                                <div class="product-img">
-
-                                                    <img src="@Url.Content(x.Article.photo)" alt="">
-
-                                                </div>
-                                                <div class="product-body">
-                                                    <h3 class="product-name"><a href="/Product/Index?artid=@x.Article.numArticle">@x.Article.designation</a></h3>
-                                                    <h4 class="product-price"><span class="qty">1x</span>$@x.Article.prixU</h4>
-                                                </div>
-                                                <a href="/Home/DeleteFav?artid=@x.idarticle"><button class="delete"><i class="fa fa-close"></i></button></a>
-                                            </div>
-                                        }
-
-
-                                    </div>
-
-
-                                </div>
-                            </div>
-                            <!-- /Wishlist -->
-                            <!-- Cart -->
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    <span>Your Cart</span>
-                                    <div class="qty">@ViewBag.num</div>
-                                </a>
-                                <div class="cart-dropdown">
-                                    <div class="cart-list">
-                                        @foreach (var x in ViewBag.charts)
-                                        {
-                                            <input type="hidden" id="numcli" value="@x.numclient" />
-                                            <div class="product-widget">
-                                                <div class="product-img">
-                                                    <img src="@Url.Content(x.Article.photo)" alt="">
-                                                </div>
-                                                <div class="product-body">
-                                                    <h3 class="product-name"><a href="/Product/Index?artid=@x.Article.numArticle">@x.Article.designation</a></h3>
-                                                    <h4 class="product-price"><span class="qty">@x.qtearticle x</span>$@x.Article.prixU</h4>
-                                                </div>
-                                                <a href="/Home/Deletecart?artid=@x.numarticle"><button class="delete"><i class="fa fa-close"></i></button></a>
-                                            </div>
-                                        }
-
-
-                                    </div>
-                                    <div class="cart-summary">
-                                        <small>@ViewBag.num Item(s) selected</small>
-                                        <h5>SUBTOTAL: $@ViewBag.totalcart</h5>
-                                    </div>
-                                    <div class="cart-btns">
-                                        <a href="#">View Cart</a>
-                                        <a id="chekout" href="">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /Cart -->
-                            <!-- Menu Toogle -->
-                            <div class="menu-toggle">
-                                <a href="#">
-                                    <i class="fa fa-bars"></i>
-                                    <span>Menu</span>
-                                </a>
-                            </div>
-                            <!-- /Menu Toogle -->
-                        </div>
-                    </div>
-                    <!-- /ACCOUNT -->
+                    
                 </div>
                 <!-- row -->
             </div>
@@ -235,16 +136,7 @@
             <!-- responsive-nav -->
             <div id="responsive-nav">
                 <!-- NAV -->
-                <ul class="main-nav nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="/Store/Hotdeal">Hot Deals</a></li>
-                    <li><a href="/Store">Store</a></li>
-                    @foreach (var x in ViewBag.Categories)
-                    {
-                <li><a href="/Store/filt?refcat=@x.refcat">@x.nomCat</a></li>
-                    }
-
-                </ul>
+                
                 <!-- /NAV -->
             </div>
             <!-- /responsive-nav -->

@@ -1,14 +1,25 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width" />
-    <title>Erreur</title>
-</head>
-<body>
-    <hgroup>
-        <h1>Erreur.</h1>
-        <h2>Une erreur s'est produite lors du traitement de votre demande.</h2>
-    </hgroup>
-</body>
-</html>
+﻿@{
+    Layout = "~/Views/Shared/_LayoutError.cshtml";
+}
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row ">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <img src="~/Images/404.png" class="img-responsive" />
+                </div>
+                <div class="col-md-6" style="text-align:center">
+                    <h1 style="font-size:100px">Oooops</h1>
+                    <p style="font-size:40px">We can't seem to find the page you're looking for </p>
+                </div>
+            </div>
+
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->

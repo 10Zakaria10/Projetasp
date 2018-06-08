@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Account" xml:space="preserve">
+    <value>Account</value>
+  </data>
   <data name="BackList" xml:space="preserve">
     <value>Back to list</value>
   </data>
@@ -138,8 +141,14 @@
   <data name="CreateCat" xml:space="preserve">
     <value>Create categorie</value>
   </data>
+  <data name="Customers" xml:space="preserve">
+    <value>Customers</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="EarningByArticles" xml:space="preserve">
+    <value>Earning By Articles</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
@@ -168,8 +177,32 @@
   <data name="GestionClient" xml:space="preserve">
     <value>Customer management</value>
   </data>
+  <data name="ItemsSold" xml:space="preserve">
+    <value>Items Sold</value>
+  </data>
+  <data name="Languages" xml:space="preserve">
+    <value>Languages</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="OrderID" xml:space="preserve">
+    <value>Order ID</value>
+  </data>
+  <data name="Overview" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
   <data name="Photo" xml:space="preserve">
     <value>Picture</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
@@ -177,16 +210,31 @@
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="Searching" xml:space="preserve">
+    <value>Search for datas &amp; reports</value>
+  </data>
   <data name="Statistique" xml:space="preserve">
     <value>Statistic</value>
   </data>
   <data name="StatistiqueP" xml:space="preserve">
     <value>Statistic Page</value>
   </data>
+  <data name="Thisweek" xml:space="preserve">
+    <value>This Week</value>
+  </data>
   <data name="TitireStatistique" xml:space="preserve">
     <value>NUMBER OF ORDERS IN RELATIVE TO CATEGORIES</value>
   </data>
   <data name="TitireStatistiqueRound" xml:space="preserve">
     <value>NUMBER OF ORDERS IN RELATIVE TO PRODUCT</value>
+  </data>
+  <data name="TopArticles" xml:space="preserve">
+    <value>Top Articles</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="totalEarnings" xml:space="preserve">
+    <value>Total Earnings</value>
   </data>
 </root>

@@ -36,14 +36,21 @@ namespace ProjetAsp.Controllers
 
         public ActionResult Index()
         {
-            
-            ViewBag.num = s2.countCommandeClient(9999);
-            ViewBag.charts = s2.getCommandeById(9999);
-            ViewBag.favoris = s4.getFavorisClient(9999);
-            ViewBag.qtqfavoris = s4.totalFavorisClient(9999);
-            ViewBag.totalcart = s2.totalClient(9999);
 
-            return View("Login");
+            try
+            {
+                ViewBag.num = s2.countCommandeClient(9999);
+                ViewBag.charts = s2.getCommandeById(9999);
+                ViewBag.favoris = s4.getFavorisClient(9999);
+                ViewBag.qtqfavoris = s4.totalFavorisClient(9999);
+                ViewBag.totalcart = s2.totalClient(9999);
+
+                return View("Login");
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
 
@@ -51,48 +58,62 @@ namespace ProjetAsp.Controllers
         [HttpPost]
         public ActionResult Index(Client person)
         {
-            
-            if (s0.SeConnecter(person))
+
+            try
             {
-
-                if(s0.isAdmin(person))
+                if (s0.SeConnecter(person))
                 {
-                    Session["person"] = s0.GetClienById(person);
 
-                    return RedirectToAction("Index", "AdminHome");
-                    
-                 }
-                 else
-                 {
-                         Session["person"] =s0.GetClienById(person) ;
-                         return RedirectToAction("Index", "Home");
-                    
-                 }
-                 
+                    if (s0.isAdmin(person))
+                    {
+                        Session["person"] = s0.GetClienById(person);
+
+                        return RedirectToAction("Index", "AdminHome");
+
+                    }
+                    else
+                    {
+                        Session["person"] = s0.GetClienById(person);
+                        return RedirectToAction("Index", "Home");
+
+                    }
+
+                }
+
+                else
+                    ViewBag.err = "Login ou mdp incorrect";
+
+                ViewBag.num = s2.countCommandeClient(9999);
+                ViewBag.charts = s2.getCommandeById(9999);
+                ViewBag.favoris = s4.getFavorisClient(9999);
+                ViewBag.qtqfavoris = s4.totalFavorisClient(9999);
+                ViewBag.totalcart = s2.totalClient(9999);
+                return View("Login");
             }
-
-            else
-                ViewBag.err = "Login ou mdp incorrect";
-
-            ViewBag.num = s2.countCommandeClient(9999);
-            ViewBag.charts = s2.getCommandeById(9999);
-            ViewBag.favoris = s4.getFavorisClient(9999);
-            ViewBag.qtqfavoris = s4.totalFavorisClient(9999);
-            ViewBag.totalcart = s2.totalClient(9999);
-            return View("Login");
+            catch (Exception)
+            {
+                return View("Error");
+            }
 
         }
 
         public ActionResult Inscription()
         {
 
-            ViewBag.num = s2.countCommandeClient(9999);
-            ViewBag.charts = s2.getCommandeById(9999);
-            ViewBag.favoris = s4.getFavorisClient(9999);
-            ViewBag.qtqfavoris = s4.totalFavorisClient(9999);
-            ViewBag.totalcart = s2.totalClient(9999);
+            try
+            {
+                ViewBag.num = s2.countCommandeClient(9999);
+                ViewBag.charts = s2.getCommandeById(9999);
+                ViewBag.favoris = s4.getFavorisClient(9999);
+                ViewBag.qtqfavoris = s4.totalFavorisClient(9999);
+                ViewBag.totalcart = s2.totalClient(9999);
 
-            return View();
+                return View();
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
 
@@ -101,18 +122,35 @@ namespace ProjetAsp.Controllers
         {
 
 
-            if (ModelState.IsValid)
+            try
             {
-                s0.Inscription(person);
-            return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    s0.Inscription(person);
+                    return RedirectToAction("Index");
+                }
 
-            ViewBag.num = s2.countCommandeClient(9999);
-            ViewBag.charts = s2.getCommandeById(9999);
-            ViewBag.favoris = s4.getFavorisClient(9999);
-            ViewBag.qtqfavoris = s4.totalFavorisClient(9999);
-            ViewBag.totalcart = s2.totalClient(9999);
-            return View();
+                ViewBag.num = s2.countCommandeClient(9999);
+                ViewBag.charts = s2.getCommandeById(9999);
+                ViewBag.favoris = s4.getFavorisClient(9999);
+                ViewBag.qtqfavoris = s4.totalFavorisClient(9999);
+                ViewBag.totalcart = s2.totalClient(9999);
+                return View();
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+        }
+
+        public ActionResult Logout()
+        {
+            if (Session["person"] != null)
+            {
+                Session["person"] = null;
+            }
+            return RedirectToAction("Index", "Login");
+
         }
 
     }

@@ -26,6 +26,7 @@ namespace ProjetAsp.Controllers
             ViewBag.categories = s3.getAllCategorie();
             ViewBag.articles = s1.getAllArticle();
             ViewBag.TopSArticle = s1.getTopSeeledarticle();
+            ViewBag.sessionkayna = true;
 
         }
 
@@ -34,13 +35,16 @@ namespace ProjetAsp.Controllers
 
         public ActionResult Index()
         {
-            if (Session["person"] == null)
+
+            try
             {
-                return RedirectToAction("Index", "Login");
+                if (Session["person"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
 
 
-            }
-          
+                }
+
                 Client cli = (Client)Session["person"];
 
                 ViewBag.num = s2.countCommandeClient(cli.numClient);
@@ -50,22 +54,27 @@ namespace ProjetAsp.Controllers
                 ViewBag.qtqfavoris = s4.totalFavorisClient(cli.numClient);
 
                 return View();
-            
-
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
 
         }
 
         public ActionResult IndexFilter(int catid)
         {
-            ViewBag.articles = s1.getArticleByrefCat(catid);
-
-            if (Session["person"] == null)
+            try
             {
-                return RedirectToAction("Index", "Login");
+                ViewBag.articles = s1.getArticleByrefCat(catid);
+
+                if (Session["person"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
 
 
-            }
-            
+                }
+
                 Client cli = (Client)Session["person"];
 
                 ViewBag.num = s2.countCommandeClient(cli.numClient);
@@ -74,21 +83,26 @@ namespace ProjetAsp.Controllers
                 ViewBag.favoris = s4.getFavorisClient(cli.numClient);
                 ViewBag.qtqfavoris = s4.totalFavorisClient(cli.numClient);
 
-            
 
-            return View("Index");
+
+                return View("Index");
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
         public ActionResult IndexFilterTopSeeling(int catid)
         {
-            ViewBag.TopSArticle = s1.getTopSeelingArticleByrefCat(catid);
-
-            if (Session["person"] == null)
+            try
             {
-                return RedirectToAction("Index", "Login");
+                ViewBag.TopSArticle = s1.getTopSeelingArticleByrefCat(catid);
 
+                if (Session["person"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
+                }
 
-            }
-           
                 Client cli = (Client)Session["person"];
 
                 ViewBag.num = s2.countCommandeClient(cli.numClient);
@@ -96,94 +110,124 @@ namespace ProjetAsp.Controllers
                 ViewBag.totalcart = s2.totalClient(cli.numClient);
                 ViewBag.favoris = s4.getFavorisClient(cli.numClient);
                 ViewBag.qtqfavoris = s4.totalFavorisClient(cli.numClient);
-
-           
-
-            return View("Index");
+                return View("Index");
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
         public ActionResult Favoris(int artid)
         {
-            if (Session["person"] == null)
+            try
             {
-                return RedirectToAction("Index", "Login");
+                if (Session["person"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
 
 
+                }
+                Client cli = (Client)Session["person"];
+
+                s4.addtoFavoris(artid, cli.numClient);
+
+                ViewBag.favoris = s4.getFavorisClient(cli.numClient);
+                ViewBag.qtqfavoris = s4.totalFavorisClient(cli.numClient);
+
+
+
+                // ici je dois ajoute hadak au favoris apres avoir cree f la bd
+
+                return RedirectToAction("Index");
             }
-            Client cli = (Client)Session["person"];
-
-            s4.addtoFavoris(artid, cli.numClient);
-
-            ViewBag.favoris = s4.getFavorisClient(cli.numClient);
-            ViewBag.qtqfavoris = s4.totalFavorisClient(cli.numClient);
-
-
-
-            // ici je dois ajoute hadak au favoris apres avoir cree f la bd
-
-            return RedirectToAction("Index");
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
         public ActionResult AddToChart(int artid)
         {
-            if (Session["person"] == null)
+            try
             {
-                return RedirectToAction("Index", "Login");
+                if (Session["person"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
 
 
+                }
+                Client cli = (Client)Session["person"];
+
+                s2.AjouteCommande(cli.numClient, artid, 1);
+
+                ViewBag.num = s2.countCommandeClient(cli.numClient);
+                ViewBag.charts = s2.getCommandeById(cli.numClient);
+                ViewBag.totalcart = s2.totalClient(cli.numClient);
+
+                // ici je dois ajoute hadak au favoris apres avoir cree f la bd
+
+                return RedirectToAction("Index");
             }
-            Client cli = (Client)Session["person"];
-
-            s2.AjouteCommande(cli.numClient, artid, 1);
-
-            ViewBag.num = s2.countCommandeClient(cli.numClient);
-            ViewBag.charts = s2.getCommandeById(cli.numClient);
-            ViewBag.totalcart = s2.totalClient(cli.numClient);
-
-            // ici je dois ajoute hadak au favoris apres avoir cree f la bd
-
-            return RedirectToAction("Index");
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
         public ActionResult DeleteFav(int artid)
         {
-            if (Session["person"] == null)
+            try
             {
-                return RedirectToAction("Index", "Login");
+                if (Session["person"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
 
 
+                }
+                Client cli = (Client)Session["person"];
+
+                s4.DeletefromFavoris(artid, cli.numClient);
+
+                ViewBag.favoris = s4.getFavorisClient(cli.numClient);
+                ViewBag.qtqfavoris = s4.totalFavorisClient(cli.numClient);
+
+
+                return RedirectToAction("Index");
             }
-            Client cli = (Client)Session["person"];
-
-            s4.DeletefromFavoris(artid, cli.numClient);
-
-            ViewBag.favoris = s4.getFavorisClient(cli.numClient);
-            ViewBag.qtqfavoris = s4.totalFavorisClient(cli.numClient);
-
-
-            return RedirectToAction("Index");
+            catch (Exception)
+            {
+                return View("Error");
+            }
 
         }
 
         public ActionResult Deletecart(int artid)
         {
-            if (Session["person"] == null)
+            try
             {
-                return RedirectToAction("Index", "Login");
+                if (Session["person"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
 
 
+                }
+                Client cli = (Client)Session["person"];
+
+                s2.DeleteCommande(cli.numClient, artid);
+
+
+                ViewBag.num = s2.countCommandeClient(cli.numClient);
+                ViewBag.charts = s2.getCommandeById(cli.numClient);
+                ViewBag.totalcart = s2.totalClient(cli.numClient);
+
+
+                return RedirectToAction("Index");
             }
-            Client cli = (Client)Session["person"];
-
-            s2.DeleteCommande(cli.numClient, artid);
-
-
-            ViewBag.num = s2.countCommandeClient(cli.numClient);
-            ViewBag.charts = s2.getCommandeById(cli.numClient);
-            ViewBag.totalcart = s2.totalClient(cli.numClient);
-
-
-            return RedirectToAction("Index");
+            catch (Exception)
+            {
+                return View("Error");
+            }
 
         }
 

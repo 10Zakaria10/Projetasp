@@ -285,6 +285,7 @@
     <Content Include="fonts\slick.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\404.png" />
     <Content Include="images\bg-title-01.jpg" />
     <Content Include="images\bg-title-02.jpg" />
     <Content Include="images\englishFlag.png" />
@@ -595,6 +596,7 @@
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
     <Content Include="Views\Shared\_AfficherDetails.cshtml" />
+    <Content Include="Views\Shared\_LayoutError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

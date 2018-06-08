@@ -28,89 +28,147 @@ namespace ProjetAsp.Controllers
 
         public ActionResult Index()
         {
-            Client person = (Client)Session["person"];
-            return View(person);
+            try
+            {
+                Client person = (Client)Session["person"];
+                return View(person);
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+            
         }
 
         public ActionResult Consultez()
         {
-            return View(s1.getAllArticle());
+            try
+            {
+                return View(s1.getAllArticle());
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
         public ActionResult Details(int id)
         {
-            return View(s1.getArticleById(id));
+            try
+            {
+                return View(s1.getArticleById(id));
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
 
         }
 
 
         public ActionResult Visualisez()
         {
-            Client person = (Client)Session["person"];
-            var x = s2.getCommandeById(person.numClient);
-
-            double prix = 0;
-
-            foreach (var i in x)
+            try
             {
+                Client person = (Client)Session["person"];
+
+                var x = s2.getCommandeById(person.numClient);
+
+                double prix = 0;
+
+                foreach (var i in x)
+                {
 
 
-                prix = prix + (double)i.Article.prixU * (double)i.qtearticle;
+                    prix = prix + (double)i.Article.prixU * (double)i.qtearticle;
+                }
+                ViewBag.prix = prix;
+
+
+                return View(x);
             }
-            ViewBag.prix = prix;
-
-
-            return View(x);
+            catch (Exception)
+            {
+                return View("Error");
+            }
+            
         }
+
         public ActionResult DeleteArt(int id)
         {
-            Client person = (Client)Session["person"];
-            s2.DeleteArt(id,person);
+            try
+            {
+                Client person = (Client)Session["person"];
+                s2.DeleteArt(id, person);
 
-            return RedirectToAction("Visualisez");
+                return RedirectToAction("Visualisez");
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+            
 
         }
 
         public ActionResult AjouterPanier()
         {
-            ViewBag.e = new SelectList(s3.getAllCategorie(), "refCat", "nomCat");
-            Client person = (Client)Session["person"];
-            var x = s2.getCommandeById(person.numClient);
-           
-            return View(x);
+            try
+            {
+                ViewBag.e = new SelectList(s3.getAllCategorie(), "refCat", "nomCat");
+
+                Client person = (Client)Session["person"];
+
+                var x = s2.getCommandeById(person.numClient);
+
+                return View(x);
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+            
         }
 
         [HttpPost]
         public ActionResult AjouterPanier(FormCollection formx)
         {
-            ViewBag.e = new SelectList(s3.getAllCategorie(), "refCat", "nomCat");
-                       Client person = (Client)Session["person"];
-            var x = s2.getCommandeById(person.numClient);
-
-            int contenu = Int32.Parse(formx["contenu"]);
-            int qte = Int32.Parse(formx["qte"]);
-            int stock = Int32.Parse(formx["stock"]);
-
-
-            if (stock < qte)
+            try
             {
-                ViewBag.err = "Stock insuffisant";
+                ViewBag.e = new SelectList(s3.getAllCategorie(), "refCat", "nomCat");
+
+                Client person = (Client)Session["person"];
+
+                var x = s2.getCommandeById(person.numClient);
+
+                int contenu = Int32.Parse(formx["contenu"]);
+                int qte = Int32.Parse(formx["qte"]);
+                int stock = Int32.Parse(formx["stock"]);
+
+
+                if (stock < qte)
+                {
+                    ViewBag.err = "Stock insuffisant";
+                }
+                else
+                {
+                    s2.AjouteCommande(person.numClient, contenu, qte);
+                }
+
+                return View(x);
             }
-            else
+            catch (Exception)
             {
-                s2.AjouteCommande(person.numClient, contenu, qte);  
+                return View("Error");
             }
             
-            return View(x);
         }
 
         public JsonResult GetArticle(int ID)
 
         {
-            prj.Configuration.ProxyCreationEnabled = false;
-            return Json(prj.Articles.Where(p => p.refcat == ID), JsonRequestBehavior.AllowGet);
-
-
+                prj.Configuration.ProxyCreationEnabled = false;
+                return Json(prj.Articles.Where(p => p.refcat == ID), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetStock(int ID)
@@ -118,17 +176,9 @@ namespace ProjetAsp.Controllers
         {
             prj.Configuration.ProxyCreationEnabled = false;
             return Json(prj.Articles.Where(p => p.numArticle == ID), JsonRequestBehavior.AllowGet);
-
-
         }
 
-        public ActionResult Convertisseur()
-        {
-            var url = "https://www.google.com";
-            ViewBag.url = url;
-
-            return View();
-        }
+        
 
 
 

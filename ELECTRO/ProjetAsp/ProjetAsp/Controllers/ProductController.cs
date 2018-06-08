@@ -35,108 +35,145 @@ namespace ProjetAsp.Controllers
         }
 
         // GET: Product
+        
         public ActionResult Index(int artid)
         {
 
-            if (Session["person"] == null)
+            try
             {
-                return RedirectToAction("Index", "Login");
+                if (Session["person"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
+                Client cli = (Client)Session["person"];
+                ViewBag.num = s2.countCommandeClient(cli.numClient);
+                ViewBag.charts = s2.getCommandeById(cli.numClient);
+                ViewBag.totalcart = s2.totalClient(cli.numClient);
+                ViewBag.favoris = s4.getFavorisClient(cli.numClient);
+                ViewBag.qtqfavoris = s4.totalFavorisClient(cli.numClient);
 
 
+                ViewBag.RelatedArticle = s1.getArticleByrefCat(s1.getcat(artid));
+                ViewBag.Reviews = s5.GetCommentairebyArticle(artid);
+                ViewBag.totalReview = s5.totalcomm(artid);
+
+                return View(s1.getArticleById(artid));
             }
+            catch (Exception)
+            {
+                ViewBag.categories = s3.getAllCategorie();
+                throw new ArithmeticException();
+            }
+                
 
-            Client cli = (Client)Session["person"];
-
-            ViewBag.num = s2.countCommandeClient(cli.numClient);
-            ViewBag.charts = s2.getCommandeById(cli.numClient);
-            ViewBag.totalcart = s2.totalClient(cli.numClient);
-            ViewBag.favoris = s4.getFavorisClient(cli.numClient);
-            ViewBag.qtqfavoris = s4.totalFavorisClient(cli.numClient);
-
-
-            ViewBag.RelatedArticle = s1.getArticleByrefCat(s1.getcat(artid));
-            ViewBag.Reviews = s5.GetCommentairebyArticle(artid);
-            ViewBag.totalReview = s5.totalcomm(artid);
-            return View(s1.getArticleById(artid));
-        }
+    }
 
 
         public ActionResult Favoris(int artid)
         {
-            if (Session["person"] == null)
+            try
             {
-                return RedirectToAction("Index", "Login");
+                if (Session["person"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
 
 
+                }
+                Client cli = (Client)Session["person"];
+
+                s4.addtoFavoris(artid, cli.numClient);
+
+                ViewBag.favoris = s4.getFavorisClient(cli.numClient);
+                ViewBag.qtqfavoris = s4.totalFavorisClient(cli.numClient);
+
+
+
+                // ici je dois ajoute hadak au favoris apres avoir cree f la bd
+
+                return RedirectToAction("Index", new { artid = artid });
             }
-            Client cli = (Client)Session["person"];
-
-            s4.addtoFavoris(artid, cli.numClient);
-
-            ViewBag.favoris = s4.getFavorisClient(cli.numClient);
-            ViewBag.qtqfavoris = s4.totalFavorisClient(cli.numClient);
-
-
-
-            // ici je dois ajoute hadak au favoris apres avoir cree f la bd
-
-            return RedirectToAction("Index", new { artid = artid});
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
         [HttpPost]
         public ActionResult addCart(int artid,int qte)
         {
-            if (Session["person"] == null)
+            try
             {
-                return RedirectToAction("Index", "Login");
+                if (Session["person"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
 
 
+                }
+                Client cli = (Client)Session["person"];
+
+                s2.AjouteCommande(cli.numClient, artid, qte);
+
+                ViewBag.num = s2.countCommandeClient(cli.numClient);
+                ViewBag.charts = s2.getCommandeById(cli.numClient);
+                ViewBag.totalcart = s2.totalClient(cli.numClient);
+
+                // ici je dois ajoute hadak au favoris apres avoir cree f la bd
+
+                return RedirectToAction("Index", new { artid = artid });
             }
-            Client cli = (Client)Session["person"];
-
-            s2.AjouteCommande(cli.numClient, artid,qte);
-
-            ViewBag.num = s2.countCommandeClient(cli.numClient);
-            ViewBag.charts = s2.getCommandeById(cli.numClient);
-            ViewBag.totalcart = s2.totalClient(cli.numClient);
-
-            // ici je dois ajoute hadak au favoris apres avoir cree f la bd
-
-            return RedirectToAction("Index", new { artid = artid });
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
         public ActionResult AddToChart(int artid)
         {
-            if (Session["person"] == null)
+            try
             {
-                return RedirectToAction("Index", "Login");
+                if (Session["person"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
 
 
+                }
+                Client cli = (Client)Session["person"];
+
+                s2.AjouteCommande(cli.numClient, artid, 1);
+
+                ViewBag.num = s2.countCommandeClient(cli.numClient);
+                ViewBag.charts = s2.getCommandeById(cli.numClient);
+                ViewBag.totalcart = s2.totalClient(cli.numClient);
+
+                // ici je dois ajoute hadak au favoris apres avoir cree f la bd
+
+                return RedirectToAction("Index", new { artid = artid });
             }
-            Client cli = (Client)Session["person"];
-
-            s2.AjouteCommande(cli.numClient, artid, 1);
-
-            ViewBag.num = s2.countCommandeClient(cli.numClient);
-            ViewBag.charts = s2.getCommandeById(cli.numClient);
-            ViewBag.totalcart = s2.totalClient(cli.numClient);
-
-            // ici je dois ajoute hadak au favoris apres avoir cree f la bd
-
-            return RedirectToAction("Index", new { artid = artid });
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
         public ActionResult Review(string nom , string email , string descr , int rating, int artid)
         {
-            if (Session["person"] == null)
+            try
             {
-                return RedirectToAction("Index", "Login");
+                if (Session["person"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
 
 
+                }
+
+                s5.AjoutezCommentaire(nom, descr, rating, artid);
+
+                return RedirectToAction("Index", new { artid = artid });
             }
-
-            s5.AjoutezCommentaire(nom, descr, rating, artid);
-
-            return RedirectToAction("Index", new { artid = artid });
+            catch (Exception)
+            {
+                return View("Error");
+            }
 
         }
     }
