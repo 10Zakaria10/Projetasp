@@ -48,7 +48,6 @@ namespace ProjetAsp.Services
         public IEnumerable<Article> getAllArticle()
         {
             return prj.Articles.ToList();
-
         }
 
         public IEnumerable<Article> getArticleByCatorBrand(string cat, string brand, double prixmin, double prixmax)

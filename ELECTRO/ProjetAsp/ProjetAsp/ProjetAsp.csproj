@@ -193,37 +193,37 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Article.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>PrjModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Categorie.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>PrjModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Client.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>PrjModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Commande.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>PrjModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Commentaire.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>PrjModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Favori.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>PrjModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model1.Context.cs">
+    <Compile Include="Models\PrjModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
+      <DependentUpon>PrjModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model1.cs">
+    <Compile Include="Models\PrjModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>PrjModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model1.Designer.cs">
+    <Compile Include="Models\PrjModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>PrjModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Services\ArticleImp.cs" />
     <Compile Include="Services\CategorieImp.cs" />
@@ -326,15 +326,15 @@
     <Content Include="js\main2.js" />
     <Content Include="js\nouislider.min.js" />
     <Content Include="js\slick.min.js" />
-    <Content Include="Models\Model1.Context.tt">
+    <Content Include="Models\PrjModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>PrjModel.edmx</DependentUpon>
+      <LastGenOutput>PrjModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Model1.tt">
+    <Content Include="Models\PrjModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
+      <DependentUpon>PrjModel.edmx</DependentUpon>
+      <LastGenOutput>PrjModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -349,6 +349,13 @@
     <Content Include="fonts\slick.eot" />
     <Content Include="fonts\slick.ttf" />
     <Content Include="fonts\slick.woff" />
+    <EntityDeploy Include="Models\PrjModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PrjModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\PrjModel.edmx.diagram">
+      <DependentUpon>PrjModel.edmx</DependentUpon>
+    </Content>
     <Content Include="fonts\poppins\poppins-v5-latin-100.eot" />
     <Content Include="fonts\poppins\poppins-v5-latin-100.ttf" />
     <Content Include="fonts\poppins\poppins-v5-latin-100.woff" />
@@ -422,13 +429,7 @@
     <Content Include="fonts\poppins\poppins-v5-latin-regular.woff" />
     <Content Include="fonts\poppins\poppins-v5-latin-regular.woff2" />
     <Content Include="Grid.mvc.readme" />
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\gridmvc.js" />
     <Content Include="Scripts\gridmvc.lang.ru.js" />
